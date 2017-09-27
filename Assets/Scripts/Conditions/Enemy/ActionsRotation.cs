@@ -11,7 +11,7 @@ using UnityEngine;
  *    - blockActionsにActionを追加
  */
 
-public class RotationCondition : Condition {
+public class ActionsRotation : Condition {
     public int num;
     int count = 0;
 
