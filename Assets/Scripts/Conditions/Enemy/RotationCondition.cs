@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*  使用方法
+ *  + numにローテーションで回すAction数を設定
+ *  + それぞれのActionConfigに対して
+ *    - このConditionを設定
+ *    - argsにローテーション順序の何番目かを設定（0からnum-1）
+ *    - orderをかぶらないように設定（argsと同じが分かりやすい）
+ *    - blockActionsにActionを追加
+ */
+
 public class RotationCondition : Condition {
     public int num;
     int count = 0;
