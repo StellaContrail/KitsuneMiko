@@ -118,8 +118,9 @@ public class ActionManager : MonoBehaviour {
         float rnd = Random.value * totalWeight;
         foreach (ActionConfig action in actions) {
             rnd -= action.weight;
-            if (rnd <= 0) {
+            if (rnd <= 0.0f) {
                 selectedAction = action;
+                break;
             }
         }
         return selectedAction;
