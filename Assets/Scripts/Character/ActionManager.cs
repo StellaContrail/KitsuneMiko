@@ -113,17 +113,15 @@ public class ActionManager : MonoBehaviour {
 
     //  リストからweightを重みとして確率的にActionConfigを選択するメソッド
     protected virtual ActionConfig SelectRandom (List<ActionConfig> actions) {
-        ActionConfig selectedAction = actions[actions.Count - 1];
         int totalWeight = actions.Sum(action => action.weight);
         float rnd = Random.value * totalWeight;
         foreach (ActionConfig action in actions) {
             rnd -= action.weight;
             if (rnd <= 0.0f) {
-                selectedAction = action;
-                break;
+                return action;
             }
         }
-        return selectedAction;
+        return actions[0];
     }
 
     /*  ActionConfigのActionを実行するためのメソッド
