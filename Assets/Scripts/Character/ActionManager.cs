@@ -15,6 +15,10 @@ public class ActionManager : MonoBehaviour {
      */
     public List<ActionConfig> actionConfigs;
 
+#if UNITY_EDITOR
+    public string configFile;
+#endif
+
     /*  順序化されたActionConfig
      *  + ActionConfigのorderをDictionaryのKeyとした辞書
      *    同じorderのものはリストにまとめられる
@@ -197,7 +201,7 @@ public class ActionConfig {
 
     public ActionConfig (
             string actionName,
-            int order = 1,
+            int order = 0,
             ConditionConfig[] conditions = null,
             int weight = 1,
             string[] blockActions = null
