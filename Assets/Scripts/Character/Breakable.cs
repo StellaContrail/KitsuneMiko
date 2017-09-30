@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Breakable : MonoBehaviour {
-    protected static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
+    static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
         = new Dictionary<string, HashSet<string>> {
             {"Player", new HashSet<string> {"Enemy", "Neutral"}},
             {"Enemy", new HashSet<string> {"Player", "Neutral"}},
@@ -16,17 +16,17 @@ public class Breakable : MonoBehaviour {
     [System.NonSerialized]
     public float hitPoint;
 
-    protected virtual void Awake () {
+    void Awake () {
         hitPoint = maxHitPoint;
     }
 
-    protected virtual void FixedUpdate () {
+    void FixedUpdate () {
         if (hitPoint <= 0.0f) {
             GetComponent<Death>().enabled = true;
         }
     }
 
-    protected virtual void OnTriggerEnter2D (Collider2D col) {
+    void OnTriggerEnter2D (Collider2D col) {
         if (DAMAGE_TAGS[tag].Contains(col.tag)) {
             Damage damage = col.GetComponent<Damage>();
             if (damage != null) {
