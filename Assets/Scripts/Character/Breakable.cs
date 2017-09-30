@@ -30,7 +30,7 @@ public class Breakable : MonoBehaviour {
         if (DAMAGE_TAGS[tag].Contains(col.tag)) {
             Damage damage = col.GetComponent<Damage>();
             if (damage != null) {
-                hitPoint -= defencePoint * damage.attackPoint;
+                damage.ApplyDamage(this);
             }
         }
     }
