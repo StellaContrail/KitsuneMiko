@@ -31,7 +31,7 @@ public class Damage : MonoBehaviour {
         }
     }
 
-    public virtual void ApplyDamage (Breakable breakable) {
+    public virtual void Apply (Breakable breakable) {
         float initHP = breakable.hitPoint;
         breakable.hitPoint -= breakable.defencePoint * attackPoint;
         foreach (DamageAttribute attr in attributes.Values) {

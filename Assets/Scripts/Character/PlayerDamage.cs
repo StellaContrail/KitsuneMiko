@@ -18,9 +18,9 @@ public class PlayerDamage : Damage {
         }
     }
 
-    public override void ApplyDamage (Breakable breakable) {
+    public override void Apply (Breakable breakable) {
         float initHP = breakable.hitPoint;
-        base.ApplyDamage(breakable);
+        base.Apply(breakable);
         foreach (DamageAttribute attr in commonAttributes.Values) {
             attr.Apply(this, breakable, initHP);
         }
