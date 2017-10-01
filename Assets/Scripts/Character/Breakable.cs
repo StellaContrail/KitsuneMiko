@@ -16,13 +16,29 @@ public class Breakable : MonoBehaviour {
     [System.NonSerialized]
     public float hitPoint;
 
+    static readonly float CAPTURE_BOUNDARY = 10.0f;
+    Capturable capturable;
+
+    [System.NonSerialized]
+    public float captureRecovery = 10.0f;
+
     void Awake () {
         hitPoint = maxHitPoint;
+    }
+
+    void Start () {
+        capturable = GetComponent<Capturable>();
     }
 
     void FixedUpdate () {
         if (hitPoint <= 0.0f) {
             GetComponent<Death>().enabled = true;
+        } else if (capturable != null) {
+            if (!capturable.enabled && hitPoint <= CAPTURE_BOUNDARY) {
+                capturable.enabled = true;
+            } else if (capturable.enabled && hitPoint > CAPTURE_BOUNDARY) {
+                capturable.enabled = false;
+            }
         }
     }
 
