@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnDirection : Action {
+public class StopMove : Action {
+    Rigidbody2D rbody;
+
+    void Start () {
+        rbody = GetComponent<Rigidbody2D>();
+    }
+
     public override bool IsDone () {
         return true;
     }
 
     public override void Act (Dictionary<string, object> args) {
-        transform.localScale = new Vector2(-1 * transform.localScale.x, 1);
+        rbody.velocity = new Vector2(0.0f, rbody.velocity.y);
     }
 }
