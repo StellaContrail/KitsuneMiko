@@ -22,14 +22,11 @@ public class SkillManager : MonoBehaviour {
     bool isActive = false;
     float totalCost;
 
-    Breakable breakable;
-
     void Awake () {
         magicPoint = maxMagicPoint;
     }
 
     void Start () {
-        breakable = GetComponent<Breakable>();
         // 空Skillをセット
     }
 
