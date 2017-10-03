@@ -19,11 +19,11 @@ TagManager:
   - 
   - 
   - Block
-  - Wall
   - Character
-  - Invincible
   - Float
-  - Player
+  - Invincible
+  - 
+  - 
   - 
   - 
   - 
