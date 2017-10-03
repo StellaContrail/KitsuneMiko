@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Acorn : MonoBehaviour {
+public class Acorn : RangedWeapon {
     static readonly float V_IX = 0.5f;
     static readonly float V_IY = 0.5f;
     static readonly float OMEGA = 1.0f;
@@ -13,8 +13,10 @@ public class Acorn : MonoBehaviour {
         rbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Init (string tag, float signX) {
+    public override void Init (string tag, Transform attacker) {
         this.tag = tag;
+        transform.position = attacker.position;
+        float signX = attacker.localScale.x;
         transform.localScale = new Vector2(signX, 1);
         rbody.velocity = new Vector2(signX * V_IX, V_IY);
         rbody.angularVelocity = signX * OMEGA;

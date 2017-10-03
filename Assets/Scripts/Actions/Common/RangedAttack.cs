@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowAcorn : Action {
 
-    public GameObject acornPrefab;
+    public GameObject weaponPrefab;
 
     bool _isDone = true;
     public override bool IsDone () {
@@ -20,7 +20,7 @@ public class ThrowAcorn : Action {
             return;
         }
         _isDone = false;
-        Instantiate(acornPrefab, transform.position, Quaternion.identity)
-            .GetComponent<Acorn>().Init(tag, transform.localScale.x);
+        Instantiate(weaponPrefab)
+            .GetComponent<RangedWeapon>().Init(tag, transform);
     }
 }

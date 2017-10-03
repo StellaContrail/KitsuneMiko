@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockExistFront : Condition {
-    public float height = 0.0f;
+    public float height;
     public float length;
 
     LayerMask block;
