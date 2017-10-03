@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Breakable : MonoBehaviour {
-    protected static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
+    static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
         = new Dictionary<string, HashSet<string>> {
             {"Player", new HashSet<string> {"Enemy", "Neutral"}},
             {"Enemy", new HashSet<string> {"Player", "Neutral"}},
@@ -16,21 +16,37 @@ public class Breakable : MonoBehaviour {
     [System.NonSerialized]
     public float hitPoint;
 
-    protected virtual void Awake () {
+    static readonly float CAPTURE_BOUNDARY = 10.0f;
+    Capturable capturable;
+
+    [System.NonSerialized]
+    public float captureRecovery = 10.0f;
+
+    void Awake () {
         hitPoint = maxHitPoint;
     }
 
-    protected virtual void FixedUpdate () {
+    void Start () {
+        capturable = GetComponent<Capturable>();
+    }
+
+    void FixedUpdate () {
         if (hitPoint <= 0.0f) {
             GetComponent<Death>().enabled = true;
+        } else if (capturable != null) {
+            if (!capturable.enabled && hitPoint <= CAPTURE_BOUNDARY) {
+                capturable.enabled = true;
+            } else if (capturable.enabled && hitPoint > CAPTURE_BOUNDARY) {
+                capturable.enabled = false;
+            }
         }
     }
 
-    protected virtual void OnTriggerEnter2D (Collider2D col) {
+    void OnTriggerEnter2D (Collider2D col) {
         if (DAMAGE_TAGS[tag].Contains(col.tag)) {
             Damage damage = col.GetComponent<Damage>();
             if (damage != null) {
-                hitPoint -= defencePoint * damage.attackPoint;
+                damage.Apply(this);
             }
         }
     }
