@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnDirection : Action {
+
     public override bool IsDone () {
         return true;
     }
