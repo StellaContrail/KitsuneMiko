@@ -1,0 +1,24 @@
+{
+    "actionConfigs": [
+        {
+            "actionName": "MoveForward",
+            "order": 0,
+            "conditions": [
+                {
+                    "conditionName": "FoundPlayer",
+                    "args": [],
+                    "not": false
+                }
+            ],
+            "weight": 1,
+            "blockActions": ["StopMove"]
+        },
+        {
+            "actionName": "StopMove",
+            "order": 1,
+            "conditions": [],
+            "weight": 1,
+            "blockActions": []
+        }
+    ]
+}
