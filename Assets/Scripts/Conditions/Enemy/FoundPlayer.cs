@@ -17,7 +17,7 @@ public class FoundPlayer : Condition {
         } else {
             return new ConditionState(
                 true,
-                new Dictionary<string, object> {{"playerTransform", player}}
+                new Dictionary<string, object> {{"target", player}}
             );
         }
     }
