@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowAcorn : Action {
+public class RangedAttack : Action {
 
     public GameObject weaponPrefab;
 
