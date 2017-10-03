@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ThrowAcorn : Action {
 
+    public GameObject acornPrefab;
+
     bool _isDone = true;
     public override bool IsDone () {
         return _isDone;
@@ -18,8 +20,7 @@ public class ThrowAcorn : Action {
             return;
         }
         _isDone = false;
-        GameObject acornObj = Resources.Load("Prefab/Acorn") as GameObject;
-        Acorn acorn = acornObj.GetComponent<Acorn>();
-        acorn.Init(tag, transform.position, transform.localScale.x);
+        Instantiate(acornPrefab, transform.position, Quaternion.identity)
+            .GetComponent<Acorn>().Init(tag, transform.localScale.x);
     }
 }

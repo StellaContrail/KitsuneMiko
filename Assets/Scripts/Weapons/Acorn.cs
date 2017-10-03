@@ -13,9 +13,8 @@ public class Acorn : MonoBehaviour {
         rbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Init (string tag, Vector2 pos, float signX) {
+    public void Init (string tag, float signX) {
         this.tag = tag;
-        transform.position = pos;
         transform.localScale = new Vector2(signX, 1);
         rbody.velocity = new Vector2(signX * V_IX, V_IY);
         rbody.angularVelocity = signX * OMEGA;
