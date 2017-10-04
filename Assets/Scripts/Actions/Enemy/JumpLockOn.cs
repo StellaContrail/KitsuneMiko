@@ -16,6 +16,7 @@ public class JumpLockOn : MonoBehaviour {
         STOP_AND_LOCKON,
         STOP_AND_LOCKON_OFF,
         ATTACK_AND_LOCKON_OFF,
+        SET_POSITION,
         STOP_ON_GROUND,
         WALK_TO_START,
 
@@ -29,13 +30,17 @@ public class JumpLockOn : MonoBehaviour {
     private BoxCollider2D boxCol;
     private CircleCollider2D circleCol;
     private Vector2 iniLocalScale;
+    private Vector2 iniPosition;
     // Use this for initialization
     void Start () {
         rbody = GetComponent<Rigidbody2D>();
         rbody.gravityScale = 2;
         timer = GetComponent<Timer>();
         iniLocalScale = transform.localScale;
- 
+
+        circleCol = GetComponent<CircleCollider2D>();
+        boxCol = GetComponent<BoxCollider2D>();
+        iniPosition = transform.position;
 	}
 	
 	void FixedUpdate () {
@@ -97,23 +102,40 @@ public class JumpLockOn : MonoBehaviour {
             case ATTACK_STATE.ATTACK_AND_LOCKON_OFF:
                 Debug.Log("attack_and_lockon_off");
                 //ラインキャスト処理
+
+                circleCol.isTrigger = true;
+                boxCol.isTrigger = true;
+                if (timer.ElapsedTime>3)
+                {
+                    attackState = ATTACK_STATE.SET_POSITION;
+                    
+                    transform.position = new Vector2(iniPosition.x,iniPosition.y+5);
+                    rbody.velocity = new Vector2(0, 0);
+                }
+                break;
+            case ATTACK_STATE.SET_POSITION:
+                Debug.Log("set_position");
+                
+                Debug.Log(transform.position);
+                rbody.gravityScale = 2;
+                
+                circleCol.isTrigger = false;
+                boxCol.isTrigger = false;
                 bool isBlock =
                      Physics2D.Linecast(transform.position - (transform.right * 0.3f),
                         transform.position - (transform.up * 0.1f), blockLayer) ||
                      Physics2D.Linecast(transform.position + (transform.right * 0.3f),
                         transform.position - (transform.up * 0.1f), blockLayer);
-                if (isBlock||timer.ElapsedTime>3)
+                if (isBlock)
                 {
-                   
-                    attackState = ATTACK_STATE.STOP_ON_GROUND;
                     timer.Begin();
+                    attackState = ATTACK_STATE.STOP_ON_GROUND;
                 }
-                break;
 
+                break;
             case ATTACK_STATE.STOP_ON_GROUND:
                 Debug.Log("stop_on_ground");
-                rbody.gravityScale = 2;
-                rbody.velocity = new Vector2(0,0);
+                
                 if (timer.ElapsedTime > 3f)
                 {
                     attackState = ATTACK_STATE.WALK_TO_START;
@@ -152,5 +174,32 @@ public class JumpLockOn : MonoBehaviour {
         }
         
 	}
+    /*
+    void OnTriggerEnter2D(Collider2D col)
+    {
 
+        if (attackState == ATTACK_STATE.ATTACK_AND_LOCKON_OFF)
+        {
+            if (col.gameObject.layer.ToString() == "Block")
+            {
+                circleCol.enabled = false;
+                boxCol.enabled = false;
+            }
+        }
+ 
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (attackState == ATTACK_STATE.ATTACK_AND_LOCKON_OFF)
+        {
+            if (col.gameObject.layer.ToString() == "Block")
+            {
+                circleCol.enabled = true;
+                boxCol.enabled = true;
+            }
+        }
+    }
+
+    */
 }
