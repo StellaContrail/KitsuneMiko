@@ -2509,11 +2509,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4194723698078112, guid: 4e66e8b01b80b1541a4da72b2c2e81d6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.72
+      value: -4.74
       objectReference: {fileID: 0}
     - target: {fileID: 4194723698078112, guid: 4e66e8b01b80b1541a4da72b2c2e81d6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.42
+      value: -1.12
       objectReference: {fileID: 0}
     - target: {fileID: 4194723698078112, guid: 4e66e8b01b80b1541a4da72b2c2e81d6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2548,6 +2548,11 @@ Prefab:
       propertyPath: blockLayer.m_Bits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 50322225869071248, guid: 4e66e8b01b80b1541a4da72b2c2e81d6,
+        type: 2}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114082356010731154, guid: 4e66e8b01b80b1541a4da72b2c2e81d6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4e66e8b01b80b1541a4da72b2c2e81d6, type: 2}
@@ -2573,6 +2578,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3e9aa18a277394a9d8ae4ae65aba0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionName: 
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &994318926
 Prefab:
   m_ObjectHideFlags: 0
