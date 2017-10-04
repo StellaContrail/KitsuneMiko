@@ -1,11 +1,11 @@
 {
     "actionConfigs": [
         {
-            "actionName": "TurnDirection",
+            "actionName": "EnemyJump",
             "order": 0,
             "conditions": [
                 {
-                    "conditionName": "BlockExistFront",
+                    "conditionName": "OnGround",
                     "args": [],
                     "not": false
                 }
@@ -14,9 +14,15 @@
             "blockActions": []
         },
         {
-            "actionName": "EnemyJump",
+            "actionName": "TurnDirection",
             "order": 1,
-            "conditions": [],
+            "conditions": [
+                {
+                    "conditionName": "BlockExistFront",
+                    "args": [],
+                    "not": false
+                }
+            ],
             "weight": 1,
             "blockActions": []
         },
