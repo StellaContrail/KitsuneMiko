@@ -26,13 +26,15 @@ public class JumpLockOn : MonoBehaviour {
     private Rigidbody2D rbody;
     private bool timerStart=false;
     private Timer timer;
-
-
+    private BoxCollider2D boxCol;
+    private CircleCollider2D circleCol;
+    private Vector2 iniLocalScale;
     // Use this for initialization
     void Start () {
         rbody = GetComponent<Rigidbody2D>();
         rbody.gravityScale = 2;
         timer = GetComponent<Timer>();
+        iniLocalScale = transform.localScale;
  
 	}
 	
@@ -70,7 +72,7 @@ public class JumpLockOn : MonoBehaviour {
                 rbody.gravityScale = 0;
                 rbody.velocity = new Vector2(0, 0);
                 Debug.Log("stop_and_lockon_off");
-                Debug.Log(timer.ElapsedTime);
+                
                 if (timer.ElapsedTime > 1f)
                 {
                     attackState = ATTACK_STATE.STOP_AND_LOCKON;
@@ -102,6 +104,7 @@ public class JumpLockOn : MonoBehaviour {
                         transform.position - (transform.up * 0.1f), blockLayer);
                 if (isBlock||timer.ElapsedTime>3)
                 {
+                   
                     attackState = ATTACK_STATE.STOP_ON_GROUND;
                     timer.Begin();
                 }
@@ -122,22 +125,27 @@ public class JumpLockOn : MonoBehaviour {
                 break;
 
             case ATTACK_STATE.NONE:
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Q))//イベント代わり
                 {
                     
                     attackState = ATTACK_STATE.STOP_INITIAL;
                     if (player.transform.position.x < transform.position.x)
                     {
                         transform.localScale =
-                        new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                        new Vector2(iniLocalScale.x, transform.localScale.y);
                     }
-                    else
+                    else if(player.transform.position.x>=transform.position.x)
                     {
-                        transform.localScale =
-                            new Vector2(transform.localScale.x, transform.localScale.y);
+                        Debug.Log("test");
+                        transform.localScale = new Vector2(iniLocalScale.x * -1, transform.localScale.y);
                     }
+                    
+                    
+                    
                     timer.Begin();
                 }
+
+                
                 break;
                 
 
