@@ -89,7 +89,7 @@ public class JumpRectangle : Action
 
             bossPosition = transform.position;
 
-            if (bossPosition.x > -6.0f)
+            if (bossPosition.x < -6.0f)
             {
                 moveDirection = MOVE_DIR.DOWN;
                 transform.localScale = new Vector2(1, 1);
