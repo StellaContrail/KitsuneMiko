@@ -9,17 +9,27 @@ public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
     public float magicPoint;
     [System.NonSerialized]
-    public float recoveryAmount = 1.0f;
+    public float naturalRecovery = 1.0f;
+    [System.NonSerialized]
+    public float captureRecovery = 10.0f;
+
+    [System.NonSerialized]
+    public Dictionary<string, bool> skillDict = new Dictionary<string, bool> {
+        {"EmptySkill", true}
+    };
 
     Skill[] skillSlots = new Skill[3];
     bool isActive = false;
     float totalCost;
+
+    Breakable breakable;
 
     void Awake () {
         magicPoint = maxMagicPoint;
     }
 
     void Start () {
+        breakable = GetComponent<Breakable>();
         // 空Skillをセット
     }
 
@@ -32,7 +42,7 @@ public class SkillManager : MonoBehaviour {
             }
         } else {
             if (magicPoint < maxMagicPoint) {
-                magicPoint += recoveryAmount;
+                magicPoint += naturalRecovery;
                 if (magicPoint > maxMagicPoint) {
                     magicPoint = maxMagicPoint;
                 }
