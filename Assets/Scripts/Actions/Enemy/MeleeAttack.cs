@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MeleeAttack : Action {
+    public string animationTrigger;
 
     GameObject weapon;
+    Animator animator;
 
     void Start () {
-        weapon = GetComponentInChildren<Damage>().gameObject;
+        weapon = GetComponentsInChildren<Damage>(true).Last().gameObject;
+        animator = GetComponent<Animator>();
     }
 
     bool _isDone = true;
@@ -15,7 +19,7 @@ public class MeleeAttack : Action {
         return _isDone;
     }
 
-    public void OnAnimationEnd () {
+    public void MeleeAttackEnd () {
         weapon.SetActive(false);
         _isDone = true;
     }
@@ -25,6 +29,7 @@ public class MeleeAttack : Action {
             return;
         }
         _isDone = false;
+        animator.SetTrigger(animationTrigger);
         weapon.SetActive(true);
     }
 }

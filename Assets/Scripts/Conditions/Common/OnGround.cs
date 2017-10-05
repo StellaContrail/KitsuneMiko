@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OnGround : Condition {
-    float depth;
-    float width;
+    public float depth;
+    public float width;
 
     LayerMask block;
 

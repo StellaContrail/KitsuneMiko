@@ -11,7 +11,7 @@ public class RangedAttack : Action {
         return _isDone;
     }
 
-    public void OnAnimationEnd () {
+    public void RangedAttackEnd () {
         _isDone = true;
     }
 

@@ -10,13 +10,13 @@ public class PlayerSearcher : MonoBehaviour {
         return player;
     }
 
-    void FixedUpdate () {
-        player = null;
-    }
-
     void OnTriggerStay2D (Collider2D col) {
         if (col.tag == "Player" && col.GetComponent<Breakable>() != null) {
             player = col.transform;
         }
+    }
+
+    void OnTriggerExist2D (Collider2D col) {
+        player = null;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Capturable : MonoBehaviour {
     public string skill;
 
+    void Start () {}
+
     void OnTriggerEnter2D (Collider2D col) {
         if (!enabled) {
             return;
