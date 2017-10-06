@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19da38cccd86af4488330089328d9bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skill: 
+  skill: DurableBody
 --- !u!114 &114531212650779546
 MonoBehaviour:
   m_ObjectHideFlags: 1

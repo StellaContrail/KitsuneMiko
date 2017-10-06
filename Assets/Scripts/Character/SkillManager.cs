@@ -15,7 +15,10 @@ public class SkillManager : MonoBehaviour {
 
     [System.NonSerialized]
     public Dictionary<string, bool> skillDict = new Dictionary<string, bool> {
-        {"EmptySkill", true}
+        {"EmptySkill", true},
+        {"DurableBody", false},
+        {"Rapidity", false},
+        {"AcornThrow", false}
     };
 
     Skill[] skillSlots = new Skill[3];
@@ -27,7 +30,8 @@ public class SkillManager : MonoBehaviour {
     }
 
     void Start () {
-        // 空Skillをセット
+        System.Type empty = typeof(EmptySkill);
+        ReplaceSkills(new System.Type[] {empty, empty, empty});
     }
 
     void FixedUpdate () {
@@ -48,7 +52,9 @@ public class SkillManager : MonoBehaviour {
     }
 
     void _ReplaceSkill (int num, System.Type type) {
-        Destroy(skillSlots[num]);
+        if (skillSlots[num] != null) {
+            Destroy(skillSlots[num]);
+        }
         skillSlots[num] = gameObject.AddComponent(type) as Skill;
         skillSlots[num].enabled = isActive;
     }
