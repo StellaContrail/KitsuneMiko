@@ -21,18 +21,33 @@ GameObject:
   - component: {fileID: 4024194733217780}
   - component: {fileID: 212957044428127932}
   - component: {fileID: 50968178123317548}
-  - component: {fileID: 58664846082034058}
   - component: {fileID: 95440524746102602}
   - component: {fileID: 114157537166597838}
   - component: {fileID: 114343937606890966}
   - component: {fileID: 114150352532770244}
-  - component: {fileID: 114655316701804766}
   - component: {fileID: 114136516436236414}
   - component: {fileID: 114674080125337332}
   - component: {fileID: 114622788276828056}
   - component: {fileID: 114469652825540462}
   m_Layer: 9
   m_Name: Crow
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1937888045168192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4070057512557946}
+  - component: {fileID: 114568830495688456}
+  - component: {fileID: 58420156396218946}
+  m_Layer: 10
+  m_Name: HitRange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +64,7 @@ GameObject:
   - component: {fileID: 50105400344921272}
   - component: {fileID: 58787786243622816}
   - component: {fileID: 114184757498024314}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: SearchRange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -67,8 +82,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4121909309545378}
+  - {fileID: 4070057512557946}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4070057512557946
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937888045168192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4024194733217780}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4121909309545378
 Transform:
@@ -123,12 +152,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58664846082034058
+--- !u!58 &58420156396218946
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1060178370688998}
+  m_GameObject: {fileID: 1937888045168192}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -152,7 +181,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 6
 --- !u!95 &95440524746102602
 Animator:
   serializedVersion: 3
@@ -256,6 +285,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: FlierStopMove
+--- !u!114 &114568830495688456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937888045168192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4bdc7619635ae24b8c8e3e3766a09a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: 10
+  initAttributes: []
 --- !u!114 &114622788276828056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,20 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: FlierChase
-  speed: 1
---- !u!114 &114655316701804766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1060178370688998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4bdc7619635ae24b8c8e3e3766a09a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: 10
-  initAttributes: []
+  speed: 2
 --- !u!114 &114674080125337332
 MonoBehaviour:
   m_ObjectHideFlags: 1

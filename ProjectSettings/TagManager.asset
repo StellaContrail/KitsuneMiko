@@ -19,9 +19,9 @@ TagManager:
   - 
   - 
   - Block
-  - Character
-  - Float
-  - Invincible
+  - Body
+  - Detector
+  - 
   - 
   - 
   - 

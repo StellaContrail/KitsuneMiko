@@ -10,7 +10,10 @@ public class PlayerSearcher : MonoBehaviour {
         return player;
     }
 
-    void OnTriggerStay2D (Collider2D col) {
+    void OnTriggerEnter2D (Collider2D col) {
+        if (player != null) {
+            return;
+        }
         if (col.tag == "Player" && col.GetComponent<Breakable>() != null) {
             player = col.transform;
         }
