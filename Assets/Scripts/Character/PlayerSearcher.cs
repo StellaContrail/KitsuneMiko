@@ -14,7 +14,7 @@ public class PlayerSearcher : MonoBehaviour {
         if (player != null) {
             return;
         }
-        if (col.tag == "Player" && col.GetComponent<Breakable>() != null) {
+        if (col.tag == "Player" && col.GetComponentInParent<Breakable>() != null) {
             player = col.transform;
         }
     }
