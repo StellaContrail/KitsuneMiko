@@ -10,8 +10,6 @@ public class SkillManager : MonoBehaviour {
     public float magicPoint;
     [System.NonSerialized]
     public float naturalRecovery = 1.0f;
-    [System.NonSerialized]
-    public float captureRecovery = 10.0f;
 
     [System.NonSerialized]
     public Dictionary<string, bool> skillDict = new Dictionary<string, bool> {
@@ -48,6 +46,12 @@ public class SkillManager : MonoBehaviour {
                     magicPoint = maxMagicPoint;
                 }
             }
+        }
+    }
+
+    public void ReleaseSkill (string skillName) {
+        if (!skillDict[skillName]) {
+            skillDict[skillName] = true;
         }
     }
 

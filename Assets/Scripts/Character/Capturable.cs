@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Capturable : MonoBehaviour {
+    public readonly float hitPointBoundary = 10.0f;
+
     public string skill;
 
     void Start () {}

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Capture : MonoBehaviour {
+    static float hitPointRecovery = 10.0f;
+    static float magPointRecovery = 10.0f;
+
     public GameObject player;
     SkillManager manager;
     Breakable breakable;
@@ -13,10 +16,8 @@ public class Capture : MonoBehaviour {
     }
 
     public void Apply (Capturable capturable) {
-        if (!manager.skillDict[capturable.skill]) {
-            manager.skillDict[capturable.skill] = true;
-        }
-        manager.magicPoint += manager.captureRecovery;
-        breakable.hitPoint += breakable.captureRecovery;
+        manager.ReleaseSkill(capturable.skill);
+        manager.magicPoint += magPointRecovery;
+        breakable.hitPoint += hitPointRecovery;
     }
 }
