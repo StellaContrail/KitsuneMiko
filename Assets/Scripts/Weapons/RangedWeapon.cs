@@ -3,5 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class RangedWeapon : MonoBehaviour {
-    public abstract void Init (string tag, Transform attacker);
+
+    public virtual void Init (string tag, Transform attacker) {
+        this.tag = tag;
+        transform.position = attacker.position;
+        transform.localScale = new Vector2(attacker.localScale.x, 1);
+    }
 }

@@ -14,10 +14,8 @@ public class Acorn : RangedWeapon {
     }
 
     public override void Init (string tag, Transform attacker) {
-        this.tag = tag;
-        transform.position = attacker.position;
+        base.Init(tag, attacker);
         float signX = attacker.localScale.x;
-        transform.localScale = new Vector2(signX, 1);
         rbody.velocity = new Vector2(signX * V_IX, V_IY);
         rbody.angularVelocity = signX * OMEGA;
     }
