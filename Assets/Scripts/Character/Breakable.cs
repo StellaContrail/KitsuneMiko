@@ -22,6 +22,17 @@ public class Breakable : MonoBehaviour {
     [System.NonSerialized]
     public float captureRecovery = 10.0f;
 
+    public int invFrameNum = 0;
+    int invFrameCount = 0;
+    bool isInvByDamage = false;
+
+    [System.NonSerialized]
+    public bool isInvincible = false;
+
+    public int hitStopFrameNum = 20;
+    int hitStopFrameCnt = 0;
+    bool isHitStopping = false;
+
     void Awake () {
         hitPoint = maxHitPoint;
     }
@@ -40,13 +51,40 @@ public class Breakable : MonoBehaviour {
                 capturable.enabled = false;
             }
         }
+        if (isInvByDamage) {
+            invFrameCount++;
+            if (invFrameCount > invFrameNum) {
+                invFrameCount = 0;
+                isInvincible = false;
+                isInvByDamage = false;
+            }
+        }
+        if (isHitStopping) {
+            hitStopFrameCnt++;
+            if (hitStopFrameCnt > hitStopFrameNum) {
+                hitStopFrameCnt = 0;
+                gameObject.Resume();
+                isHitStopping = false;
+            }
+        }
     }
 
     void OnTriggerEnter2D (Collider2D col) {
+        if (isInvincible) {
+            return;
+        }
         if (DAMAGE_TAGS[tag].Contains(col.tag)) {
             Damage damage = col.GetComponent<Damage>();
             if (damage != null) {
                 damage.Apply(this);
+                if (invFrameNum != 0) {
+                    isInvByDamage = true;
+                    isInvincible = true;
+                }
+                if (hitStopFrameNum != 0) {
+                    isHitStopping = true;
+                    gameObject.Pause();
+                }
             }
         }
     }

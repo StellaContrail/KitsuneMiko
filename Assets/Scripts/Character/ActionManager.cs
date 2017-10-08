@@ -90,11 +90,6 @@ public class ActionManager : MonoBehaviour {
         SortActions();
     }
 
-    //  deriveTypeがbaseTypeの継承かそれ自体であることを判定する関数
-    static bool IsClassOf (System.Type deriveType, System.Type baseType) {
-        return deriveType == baseType || deriveType.IsSubclassOf(baseType);
-    }
-
     /*  渡されたActionConfigのリストから実行不可のものを取り除くメソッド
      *  + 以下のものを取り除く
      *    - Actionがdisableなもの
@@ -106,7 +101,7 @@ public class ActionManager : MonoBehaviour {
         foreach (ActionConfig action in actions) {
             System.Type actionType = action.action.GetType();
             if (action.action.enabled
-                && !blockActionTypes.Any(type => IsClassOf(actionType, type))
+                && !blockActionTypes.Any(type => actionType.IsClassOf(type))
                 && action.IsAvailable()
             ) {
                 availableActions.Add(action);
@@ -179,6 +174,13 @@ public class ActionManager : MonoBehaviour {
                     break;
             }
         }
+    }
+}
+
+public static class TypeExtension {
+    //  deriveTypeがbaseTypeの継承かそれ自体であることを判定する関数
+    public static bool IsClassOf (this System.Type deriveType, System.Type baseType) {
+        return deriveType == baseType || deriveType.IsSubclassOf(baseType);
     }
 }
 
