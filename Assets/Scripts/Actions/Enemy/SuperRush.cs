@@ -5,27 +5,27 @@ using UnityEngine;
 public class SuperRush : Action {
 
     private Rigidbody2D rbody;
+    public float moveSpeed = 4;//移動速度
+    private int count;//ボスが静止したフレーム数 
+    public int waitFrame = 120;//ボスが静止するフレーム数
+    private Vector3 bossPosition;//ボスの位置座標
 
-    private float moveSpeed = 4;
-
-    Vector3 bossPosition;
-
-    int count = 0;
-
+    //移動方向を定義
     public enum MOVE_DIR
     {
         LEFT,
         RIGHT,
     }
 
+    //ボスの移動状態を定義
     public enum MOVE_STATUS
     {
         MOVING,
         WAITING,
     }
 
-    private MOVE_DIR moveDirection = MOVE_DIR.LEFT;//移動方法
-    private MOVE_STATUS moveStatus = MOVE_STATUS.WAITING;//移動方法
+    private MOVE_DIR moveDirection = MOVE_DIR.LEFT;//移動方向
+    private MOVE_STATUS moveStatus = MOVE_STATUS.WAITING;//移動状態
 
     public override bool IsDone()
     {
@@ -47,13 +47,11 @@ public class SuperRush : Action {
         {
             moveDirection = MOVE_DIR.LEFT;
             transform.localScale = new Vector2(1, 1);
-
         }
         else
         {
             moveDirection = MOVE_DIR.RIGHT;
             transform.localScale = new Vector2(-1, 1);
-
         }
     }
 	
@@ -66,18 +64,15 @@ public class SuperRush : Action {
     {
         if(moveStatus == MOVE_STATUS.WAITING)
         {
-
-            if (count < 120)
+            if (count < waitFrame)
             {
                 count++;
             }
 
-            if (count == 120)
+            if (count == waitFrame)
             {
                 moveStatus = MOVE_STATUS.MOVING;
-            }
-
-          
+            }     
         }
 
         if(moveStatus == MOVE_STATUS.MOVING)
