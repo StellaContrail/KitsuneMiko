@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditionName: FoundPlayer
+  rangeName: SearchRange
 --- !u!114 &114384044596421604
 MonoBehaviour:
   m_ObjectHideFlags: 1

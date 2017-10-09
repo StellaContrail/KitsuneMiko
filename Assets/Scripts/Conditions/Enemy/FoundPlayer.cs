@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FoundPlayer : Condition {
+    public string rangeName;
 
     PlayerSearcher searcher;
 
     void Start () {
-        searcher = GetComponentInChildren<PlayerSearcher>();
+        searcher = transform.Find(rangeName).GetComponent<PlayerSearcher>();
     }
 
     public override ConditionState Check (string[] args) {

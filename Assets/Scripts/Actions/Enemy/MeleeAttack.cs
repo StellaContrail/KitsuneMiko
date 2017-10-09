@@ -4,13 +4,14 @@ using System.Linq;
 using UnityEngine;
 
 public class MeleeAttack : Action {
+    public string rangeName;
     public string animationTrigger;
 
     GameObject weapon;
     Animator animator;
 
     void Start () {
-        weapon = GetComponentsInChildren<Damage>(true).Last().gameObject;
+        weapon = transform.Find(rangeName).gameObject;
         animator = GetComponent<Animator>();
     }
 

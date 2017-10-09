@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditionName: FoundPlayer
+  rangeName: SearchRange
 --- !u!212 &212957044428127932
 SpriteRenderer:
   m_ObjectHideFlags: 1

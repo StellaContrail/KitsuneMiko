@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditionName: FoundPlayer
+  rangeName: SearchRange
 --- !u!114 &114851947976053610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,6 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: MeleeAttack
+  rangeName: AttackRange
   animationTrigger: attackRequired
 --- !u!212 &212862499655078284
 SpriteRenderer:
