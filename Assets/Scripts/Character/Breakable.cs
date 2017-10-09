@@ -79,8 +79,12 @@ public class Breakable : MonoBehaviour {
                     BeginInvincible();
                 }
                 if (hitStopFrameNum != 0) {
-                    isHitStopping = true;
-                    gameObject.Pause();
+                    if (isHitStopping) {
+                        hitStopFrameCnt = 0;
+                    } else {
+                        isHitStopping = true;
+                        gameObject.Pause();
+                    }
                 }
             }
         }
