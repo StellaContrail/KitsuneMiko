@@ -20,6 +20,7 @@ public class MoveForward : Action {
 
     public override void Act (Dictionary<string, object> args) {
         animator.SetTrigger(animationTrigger);
-        rbody.velocity = new Vector2(transform.localScale.x * speed, rbody.velocity.y);
+        rbody.velocity
+            = new Vector2((float)transform.FaceDir() * speed, rbody.velocity.y);
     }
 }

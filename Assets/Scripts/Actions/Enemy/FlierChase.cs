@@ -18,7 +18,7 @@ public class FlierChase : Action {
     public override void Act (Dictionary<string, object> args) {
         Transform target = (Transform)args["target"];
         Vector2 dir = ((Vector2)(target.position - transform.position)).normalized;
-        transform.localScale = new Vector2(System.Math.Sign(dir.x), 1);
+        transform.FaceDir(dir.GenerateFaceDir());
         rbody.velocity = speed * dir;
     }
 }

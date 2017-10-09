@@ -17,7 +17,7 @@ public class BlockExistFront : Condition {
         return new ConditionState(
             Physics2D.Linecast(
                 pos + new Vector2(0.0f, height),
-                pos + new Vector2(transform.localScale.x * length, height),
+                pos + new Vector2((float)transform.FaceDir() * length, height),
                 block
             ));
     }

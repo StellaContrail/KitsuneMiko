@@ -7,6 +7,6 @@ public abstract class RangedWeapon : MonoBehaviour {
     public virtual void Init (string tag, Transform attacker) {
         this.tag = tag;
         transform.position = attacker.position;
-        transform.localScale = new Vector2(attacker.localScale.x, 1);
+        transform.FaceDir(attacker.FaceDir());
     }
 }
