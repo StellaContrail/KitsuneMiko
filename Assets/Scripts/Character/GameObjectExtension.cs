@@ -11,6 +11,8 @@ public static class GameObjectExtension {
         Vector2 velocity;
         float anglerVelocity;
 
+        int pauseCallCount = 0;
+
         public MotionState (GameObject obj) {
             rbody = obj.GetComponent<Rigidbody2D>();
             animator = obj.GetComponent<Animator>();
@@ -18,30 +20,36 @@ public static class GameObjectExtension {
         }
 
         public void Pause () {
-            if (animator != null) {
-                animator.speed = 0.0f;
-                velocity = rbody.velocity;
-                anglerVelocity = rbody.angularVelocity;
+            if (pauseCallCount == 0) {
+                if (animator != null) {
+                    animator.speed = 0.0f;
+                    velocity = rbody.velocity;
+                    anglerVelocity = rbody.angularVelocity;
+                }
+                if (actionManager != null) {
+                    actionManager.enabled = false;
+                }
+                if (rbody != null) {
+                    rbody.isKinematic = false;
+                }
             }
-            if (actionManager != null) {
-                actionManager.enabled = false;
-            }
-            if (rbody != null) {
-                rbody.isKinematic = false;
-            }
+            pauseCallCount++;
         }
 
         public void Resume () {
-            if (rbody != null) {
-                rbody.isKinematic = true;
-                rbody.velocity = velocity;
-                rbody.angularVelocity = anglerVelocity;
-            }
-            if (actionManager != null) {
-                actionManager.enabled = true;
-            }
-            if (animator != null) {
-                animator.speed = 1.0f;
+            pauseCallCount--;
+            if (pauseCallCount == 0) {
+                if (rbody != null) {
+                    rbody.isKinematic = true;
+                    rbody.velocity = velocity;
+                    rbody.angularVelocity = anglerVelocity;
+                }
+                if (actionManager != null) {
+                    actionManager.enabled = true;
+                }
+                if (animator != null) {
+                    animator.speed = 1.0f;
+                }
             }
         }
     }

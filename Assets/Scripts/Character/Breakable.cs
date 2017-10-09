@@ -18,12 +18,12 @@ public class Breakable : MonoBehaviour {
 
     Capturable capturable;
 
+    bool isInvincible = false;
+    int invCallCount = 0;
+
     public int invFrameNum = 0;
     int invFrameCount = 0;
     bool isInvByDamage = false;
-
-    [System.NonSerialized]
-    public bool isInvincible = false;
 
     public int hitStopFrameNum = 20;
     int hitStopFrameCnt = 0;
@@ -51,17 +51,17 @@ public class Breakable : MonoBehaviour {
         if (isInvByDamage) {
             invFrameCount++;
             if (invFrameCount > invFrameNum) {
-                invFrameCount = 0;
-                isInvincible = false;
                 isInvByDamage = false;
+                invFrameCount = 0;
+                EndInvincible();
             }
         }
         if (isHitStopping) {
             hitStopFrameCnt++;
             if (hitStopFrameCnt > hitStopFrameNum) {
+                isHitStopping = false;
                 hitStopFrameCnt = 0;
                 gameObject.Resume();
-                isHitStopping = false;
             }
         }
     }
@@ -76,13 +76,27 @@ public class Breakable : MonoBehaviour {
                 damage.Apply(this);
                 if (invFrameNum != 0) {
                     isInvByDamage = true;
-                    isInvincible = true;
+                    BeginInvincible();
                 }
                 if (hitStopFrameNum != 0) {
                     isHitStopping = true;
                     gameObject.Pause();
                 }
             }
+        }
+    }
+
+    public void BeginInvincible () {
+        if (invCallCount == 0) {
+            isInvincible = true;
+        }
+        invCallCount++;
+    }
+
+    public void EndInvincible () {
+        invCallCount--;
+        if (invCallCount == 0) {
+            isInvincible = false;
         }
     }
 }
