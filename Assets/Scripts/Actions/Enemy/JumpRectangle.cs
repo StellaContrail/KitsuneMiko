@@ -5,8 +5,12 @@ using DG.Tweening;
 public class JumpRectangle : Action
 {
     private Rigidbody2D rbody;
-    private float moveSpeed = 2;
 
+    public float horizontalSpeed = 2;//水平移動の速度
+    public float verticalSpeed = 1;//垂直移動の速度
+    private Vector3 bossPosition;//ボスの座標
+
+    //移動方向
     public enum MOVE_DIR
     {
         LEFT,
@@ -15,7 +19,7 @@ public class JumpRectangle : Action
         DOWN,
     }
 
-    private MOVE_DIR moveDirection = MOVE_DIR.UP;//移動方法
+    private MOVE_DIR moveDirection = MOVE_DIR.UP;
 
     // Use this for initialization
     void Start()
@@ -32,13 +36,10 @@ public class JumpRectangle : Action
 
     void FixedUpdate()
     {
-        Vector3 bossPosition;
-
+        //上移動
         if (moveDirection == MOVE_DIR.UP)
         {
-            rbody.velocity = new Vector2(0, rbody.velocity.y + 0.5f);
-            //transform.localScale = new Vector2(1, 1);
-
+            rbody.velocity = new Vector2(0, verticalSpeed);
             bossPosition = transform.position;
 
             if (bossPosition.y > 3.3f)
@@ -57,27 +58,24 @@ public class JumpRectangle : Action
             }
         }
 
+        //右移動
         if (moveDirection == MOVE_DIR.RIGHT)
         {
-            rbody.velocity = new Vector2(moveSpeed, 0);
-            //transform.localScale = new Vector2(1, 1);
-
+            rbody.velocity = new Vector2(horizontalSpeed, 0);
             bossPosition = transform.position;
 
             if (bossPosition.x > 6.0f)
             {
                 moveDirection = MOVE_DIR.DOWN;
                 transform.localScale = new Vector2(-1, 1);
-
             }
 
         }
 
+        //左移動
         if (moveDirection == MOVE_DIR.LEFT)
         {
-            rbody.velocity = new Vector2(-moveSpeed, 0);
-            //transform.localScale = new Vector2(1, 1);
-
+            rbody.velocity = new Vector2(-verticalSpeed, 0);
             bossPosition = transform.position;
 
             if (bossPosition.x < -6.0f)
@@ -89,17 +87,13 @@ public class JumpRectangle : Action
 
         }
 
+        //下移動
         if (moveDirection == MOVE_DIR.DOWN)
         {
-            rbody.velocity = new Vector2(0, rbody.velocity.y - 0.5f);
+            rbody.velocity = new Vector2(0, -verticalSpeed);
             transform.localScale = new Vector2(1, 1);
-
             bossPosition = transform.position;
-
         }
-
-
-
     }
 
     public override bool IsDone()
