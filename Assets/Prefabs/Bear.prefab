@@ -433,7 +433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: MeleeAttack
-  rangeName: AttackRange
   animationTrigger: attackRequired
 --- !u!212 &212862499655078284
 SpriteRenderer:
