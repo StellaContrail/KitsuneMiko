@@ -26,11 +26,11 @@ public static class VectorExtension {
 
 public static class TransformExtension {
 
-    public static FACE_DIR FaceDir (this Transform transform) {
+    public static FACE_DIR GetFaceDir (this Transform transform) {
         return transform.localScale.GenerateFaceDir();
     }
 
-    public static void FaceDir (this Transform transform, FACE_DIR dir) {
+    public static void SetFaceDir (this Transform transform, FACE_DIR dir) {
         Vector2 scale = (Vector2)transform.localScale;
         transform.localScale = new Vector2((float)dir * scale.x, scale.y);
     }

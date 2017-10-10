@@ -15,7 +15,7 @@ public class Acorn : RangedWeapon {
 
     public override void Init (string tag, Transform attacker) {
         base.Init(tag, attacker);
-        float dir = (float)attacker.FaceDir();
+        float dir = (float)attacker.GetFaceDir();
         rbody.velocity = new Vector2(dir * V_IX, V_IY);
         rbody.angularVelocity = dir * OMEGA;
     }

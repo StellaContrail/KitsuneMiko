@@ -9,6 +9,6 @@ public class TurnDirection : Action {
     }
 
     public override void Act (Dictionary<string, object> args) {
-        transform.FaceDir(transform.FaceDir().Reverse());
+        transform.SetFaceDir(transform.GetFaceDir().Reverse());
     }
 }
