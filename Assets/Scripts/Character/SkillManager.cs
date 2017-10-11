@@ -11,6 +11,9 @@ public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
     public float naturalRecovery = 1.0f;
 
+    static readonly int MP_UPD_FRAME_NUM = 10;
+    int mpUpdateFrameCnt = 0;
+
     [System.NonSerialized]
     public Dictionary<string, bool> skillDict = new Dictionary<string, bool> {
         {"EmptySkill", true},
@@ -33,6 +36,10 @@ public class SkillManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        mpUpdateFrameCnt++;
+        if (mpUpdateFrameCnt != MP_UPD_FRAME_NUM) {
+            return;
+        }
         if (isActive) {
             magicPoint -= totalCost;
             if (magicPoint <= 0.0f) {
