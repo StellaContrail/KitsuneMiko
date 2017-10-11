@@ -8,6 +8,7 @@ using UnityEngine;
  *    actionConfigsを変更せずに直接orderedActionsを設定するように変更する可能性がある
  */
 
+[DisallowMultipleComponent]
 public class ActionManager : MonoBehaviour {
 
     /*  各Actionの設定のリスト
@@ -16,6 +17,7 @@ public class ActionManager : MonoBehaviour {
     public List<ActionConfig> actionConfigs;
 
 #if UNITY_EDITOR
+    [Space(15)]
     public string configFile;
 #endif
 

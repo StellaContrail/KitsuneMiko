@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Damage))]
 public abstract class RangedWeapon : MonoBehaviour {
 
     public virtual void Init (string tag, Transform attacker) {

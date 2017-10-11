@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SkillManager))]
 public abstract class Skill : MonoBehaviour {
 
     public abstract float cost {get;}

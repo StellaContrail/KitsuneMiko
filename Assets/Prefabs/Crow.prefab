@@ -44,8 +44,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4070057512557946}
-  - component: {fileID: 114568830495688456}
   - component: {fileID: 58420156396218946}
+  - component: {fileID: 114568830495688456}
   m_Layer: 10
   m_Name: HitRange
   m_TagString: Enemy

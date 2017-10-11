@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Death))]
 public class Breakable : MonoBehaviour {
     static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
         = new Dictionary<string, HashSet<string>> {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Damage : MonoBehaviour {
     public float attackPoint;
     public string[] initAttributes;

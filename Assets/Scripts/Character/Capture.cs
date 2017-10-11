@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Capture : MonoBehaviour {
     static float hitPointRecovery = 10.0f;
     static float magPointRecovery = 10.0f;

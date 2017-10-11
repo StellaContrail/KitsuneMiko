@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
     public float maxMagicPoint = 100.0f;
