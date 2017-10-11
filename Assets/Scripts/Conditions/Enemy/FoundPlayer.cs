@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Conditions/Enemy/Found Player")]
 public class FoundPlayer : Condition {
     public string rangeName;
 

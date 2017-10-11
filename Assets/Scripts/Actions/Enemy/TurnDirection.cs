@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Turn Direction")]
 public class TurnDirection : Action {
 
     public override bool IsDone () {

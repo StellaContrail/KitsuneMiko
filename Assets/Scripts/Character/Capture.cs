@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Character/Capture")]
 [DisallowMultipleComponent]
 public class Capture : MonoBehaviour {
     static float hitPointRecovery = 10.0f;

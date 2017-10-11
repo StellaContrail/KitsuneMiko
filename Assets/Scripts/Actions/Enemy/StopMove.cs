@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Stop Move")]
 public class StopMove : Action {
     public string animationTrigger;
 

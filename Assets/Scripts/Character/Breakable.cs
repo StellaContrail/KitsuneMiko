@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Character/Breakable")]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Death))]
 public class Breakable : MonoBehaviour {

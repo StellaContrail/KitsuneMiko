@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Conditions/Common/On Ground")]
 public class OnGround : Condition {
     public float depth;
     public float width;

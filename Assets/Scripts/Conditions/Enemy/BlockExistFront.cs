@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Conditions/Enemy/Block Exist Front")]
 public class BlockExistFront : Condition {
     public float height;
     public float length;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Melee Attack")]
 public class MeleeAttack : Action {
     public string animationTrigger;
 

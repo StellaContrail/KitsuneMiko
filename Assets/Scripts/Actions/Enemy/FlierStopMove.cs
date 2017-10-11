@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Flier Stop Move")]
 public class FlierStopMove : Action {
     Rigidbody2D rbody;
 

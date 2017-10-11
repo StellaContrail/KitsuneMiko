@@ -8,6 +8,7 @@ using UnityEngine;
  *    actionConfigsを変更せずに直接orderedActionsを設定するように変更する可能性がある
  */
 
+[AddComponentMenu("Character/Action Manager")]
 [DisallowMultipleComponent]
 public class ActionManager : MonoBehaviour {
 

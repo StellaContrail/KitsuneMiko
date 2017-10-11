@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Weapons/Acorn")]
 public class Acorn : RangedWeapon {
     static readonly float V_IX = 0.5f;
     static readonly float V_IY = 0.5f;

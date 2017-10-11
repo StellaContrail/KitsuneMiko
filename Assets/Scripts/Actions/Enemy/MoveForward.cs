@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Move Forward")]
 public class MoveForward : Action {
     public float speed;
     public string animationTrigger;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Common/Ranged Attack")]
 public class RangedAttack : Action {
 
     public GameObject weaponPrefab;

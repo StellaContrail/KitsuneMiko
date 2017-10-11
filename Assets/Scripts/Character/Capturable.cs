@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Character/Capturable")]
 [DisallowMultipleComponent]
 public class Capturable : MonoBehaviour {
     public readonly float hitPointBoundary = 10.0f;

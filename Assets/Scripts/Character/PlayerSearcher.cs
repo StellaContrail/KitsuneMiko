@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Character/Player Searcher")]
 [DisallowMultipleComponent]
 public class PlayerSearcher : MonoBehaviour {
 

@@ -11,6 +11,7 @@ using UnityEngine;
  *    - blockActionsにActionを追加
  */
 
+[AddComponentMenu("Conditions/Enemy/Actions Rotation")]
 public class ActionsRotation : Condition {
     public int num;
     int count = 0;

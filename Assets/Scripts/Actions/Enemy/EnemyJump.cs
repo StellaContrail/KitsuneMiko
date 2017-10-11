@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Actions/Enemy/Enemy Jump")]
 public class EnemyJump : Action {
     public float vy;
 
