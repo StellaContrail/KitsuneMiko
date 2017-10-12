@@ -6,22 +6,21 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PlayerSearcher : MonoBehaviour {
 
-    Transform player = null;
+    List<Transform> players = new List<Transform>();
 
     public Transform SearchPlayer () {
-        return player;
+        return players.Count == 0 ? null : players[0];
     }
 
     void OnTriggerEnter2D (Collider2D col) {
-        if (player != null) {
-            return;
-        }
         if (col.tag == "Player" && col.GetComponentInParent<Breakable>() != null) {
-            player = col.transform;
+            players.Add(col.transform.parent);
         }
     }
 
-    void OnTriggerExist2D (Collider2D col) {
-        player = null;
+    void OnTriggerExit2D (Collider2D col) {
+        if (col.tag == "Player" && col.GetComponentInParent<Breakable>() != null) {
+            players.Remove(col.transform.parent);
+        }
     }
 }

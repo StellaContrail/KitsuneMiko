@@ -23,14 +23,16 @@ public static class GameObjectExtension {
             if (pauseCallCount == 0) {
                 if (animator != null) {
                     animator.speed = 0.0f;
-                    velocity = rbody.velocity;
-                    anglerVelocity = rbody.angularVelocity;
                 }
                 if (actionManager != null) {
                     actionManager.enabled = false;
                 }
                 if (rbody != null) {
-                    rbody.isKinematic = false;
+                    velocity = rbody.velocity;
+                    rbody.velocity = Vector2.zero;
+                    anglerVelocity = rbody.angularVelocity;
+                    rbody.angularVelocity = 0.0f;
+                    rbody.isKinematic = true;
                 }
             }
             pauseCallCount++;
@@ -40,7 +42,7 @@ public static class GameObjectExtension {
             pauseCallCount--;
             if (pauseCallCount == 0) {
                 if (rbody != null) {
-                    rbody.isKinematic = true;
+                    rbody.isKinematic = false;
                     rbody.velocity = velocity;
                     rbody.angularVelocity = anglerVelocity;
                 }

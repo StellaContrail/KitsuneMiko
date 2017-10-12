@@ -15,6 +15,6 @@ public class FlierStopMove : Action {
     }
 
     public override void Act (Dictionary<string, object> args) {
-        rbody.velocity = new Vector2(0.0f, 0.0f);
+        rbody.velocity = Vector2.zero;
     }
 }
