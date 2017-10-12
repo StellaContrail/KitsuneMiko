@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114524856021367534}
   - component: {fileID: 114376562824777832}
   - component: {fileID: 114391245585352438}
+  - component: {fileID: 114652280703881764}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -446,6 +447,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditionName: WalkCondition
+--- !u!114 &114652280703881764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196683616667812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f93a60e6c880a40b998655e5496ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114654393940375558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -494,8 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: JumpRise
-  jumpForce: 200
-  jumpSpeed: 60
+  jumpSpeed: 4
 --- !u!114 &114948238920596870
 MonoBehaviour:
   m_ObjectHideFlags: 1
