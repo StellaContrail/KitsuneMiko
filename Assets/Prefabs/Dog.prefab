@@ -45,7 +45,9 @@ GameObject:
   - component: {fileID: 114384044596421604}
   - component: {fileID: 114097419682639724}
   - component: {fileID: 114884669009287688}
+  - component: {fileID: 114503512829267466}
   - component: {fileID: 114316540202099780}
+  - component: {fileID: 114086844890461086}
   - component: {fileID: 114044687588209712}
   - component: {fileID: 114816660074266272}
   m_Layer: 9
@@ -249,6 +251,18 @@ MonoBehaviour:
   actionName: MoveForward
   speed: 4.5
   animationTrigger: runRequired
+--- !u!114 &114086844890461086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1228589806883486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246d8a8e0d00ec841ba28064919d252b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: TurnDirection
 --- !u!114 &114097419682639724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -285,6 +299,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36623feede0afb43b7bc82577ff9efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114503512829267466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1228589806883486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15f48fe67a2b5140a56b32534eeee2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionName: BlockExistFront
+  height: 0.4
+  length: 0.5
 --- !u!114 &114503798117185144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bdc7619635ae24b8c8e3e3766a09a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: 10
+  attackPoint: 70
   initAttributes: []
 --- !u!114 &114816660074266272
 MonoBehaviour:
@@ -323,8 +351,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionConfigs:
-  - actionName: MoveForward
+  - actionName: TurnDirection
     order: 0
+    conditions:
+    - conditionName: BlockExistFront
+      args: []
+      not: 0
+    weight: 1
+    blockActions: []
+  - actionName: MoveForward
+    order: 1
     conditions:
     - conditionName: FoundPlayer
       args: []
@@ -333,7 +369,7 @@ MonoBehaviour:
     blockActions:
     - StopMove
   - actionName: StopMove
-    order: 1
+    order: 2
     conditions: []
     weight: 1
     blockActions: []
@@ -360,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8844f15b2a6b8d4eacd1eb926bc91ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoint: 100
+  maxHitPoint: 120
   defencePoint: 1
   invFrameNum: 0
   hitStopFrameNum: 20
