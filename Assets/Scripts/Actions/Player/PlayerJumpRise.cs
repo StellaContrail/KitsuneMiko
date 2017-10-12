@@ -6,7 +6,7 @@ public class PlayerJumpRise : Action
 {
 
     Rigidbody2D rbody;
-    public float jumpForce = 200f;//ジャンプ力
+    public float jumpSpeed = 4f;
 	[System.NonSerialized]
     public bool isJumping = false;
 
@@ -18,7 +18,8 @@ public class PlayerJumpRise : Action
 
     public override void Act(Dictionary<string, object> args)
     {
-        rbody.AddForce(Vector2.up * jumpForce);
+        Vector2 velocity = rbody.velocity;
+        rbody.velocity = new Vector2(velocity.x, velocity.y + jumpSpeed);
         isJumping = true;
         _IsDone = true;
     }
