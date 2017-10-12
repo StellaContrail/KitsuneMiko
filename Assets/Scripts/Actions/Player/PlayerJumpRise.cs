@@ -19,7 +19,7 @@ public class PlayerJumpRise : Action
     public override void Act(Dictionary<string, object> args)
     {
         Vector2 velocity = rbody.velocity;
-        rbody.velocity = new Vector2(velocity.x, velocity.y + jumpSpeed);
+        rbody.velocity = new Vector2(velocity.x, jumpSpeed);
         isJumping = true;
         _IsDone = true;
     }
