@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Character/Death")]
+[DisallowMultipleComponent]
 public class Death : MonoBehaviour {
     protected virtual void OnEnable () {
         GetComponent<Breakable>().enabled = false;
