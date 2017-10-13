@@ -14,7 +14,6 @@ public class PlayerJumpDecline : Action {
 
 	public override void Act(Dictionary<string, object> args)
 	{
-        Debug.Log("Declined");
         rbody.AddForce(Vector2.down * fallEnhance * rbody.velocity.y);
         _IsDone = true;
         // 一度ジャンプの減速を行えばPlayerJumpDeclineのConditionのStatus.isSatisfiedをtrueにしてやる
