@@ -47,6 +47,10 @@ public class PlayerAttack : Action
     void AnimationFlag(int condition)
     {
         isAttackAnimationFinished = condition == 1;
+        if (condition == 1)
+        {
+            presentWeapon.SetActive(false);
+        }
     }
 
     // Use this for initialization
