@@ -5,6 +5,7 @@ using UnityEngine;
 /*  キャラクターの行動制御のための条件を定義するための抽象クラス
  *  + 実装はイベント駆動風
  */
+[RequireComponent(typeof(ActionManager))]
 public abstract class Condition : MonoBehaviour {
 
     /*  同一コンポーネントの識別に使用するためのCondition名
