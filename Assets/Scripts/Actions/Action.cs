@@ -5,6 +5,7 @@ using UnityEngine;
 /*  キャラクターの行動を定義するための抽象クラス
  *  + 実装はイベント駆動風となっている
  */
+[RequireComponent(typeof(ActionManager))]
 public abstract class Action : MonoBehaviour {
 
     /*  同一コンポーネントの識別に使用するためのAction名
