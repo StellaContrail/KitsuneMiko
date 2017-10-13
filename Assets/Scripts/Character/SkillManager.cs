@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Character/Skill Manager")]
+[DisallowMultipleComponent]
 public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
     public float maxMagicPoint = 100.0f;
@@ -10,30 +12,36 @@ public class SkillManager : MonoBehaviour {
     public float magicPoint;
     [System.NonSerialized]
     public float naturalRecovery = 1.0f;
-    [System.NonSerialized]
-    public float captureRecovery = 10.0f;
+
+    static readonly int MP_UPD_FRAME_NUM = 10;
+    int mpUpdateFrameCnt = 0;
 
     [System.NonSerialized]
     public Dictionary<string, bool> skillDict = new Dictionary<string, bool> {
-        {"EmptySkill", true}
+        {"EmptySkill", true},
+        {"DurableBody", false},
+        {"Rapidity", false},
+        {"AcornThrow", false}
     };
 
     Skill[] skillSlots = new Skill[3];
     bool isActive = false;
     float totalCost;
 
-    Breakable breakable;
-
     void Awake () {
         magicPoint = maxMagicPoint;
     }
 
     void Start () {
-        breakable = GetComponent<Breakable>();
-        // 空Skillをセット
+        System.Type empty = typeof(EmptySkill);
+        ReplaceSkills(new System.Type[] {empty, empty, empty});
     }
 
     void FixedUpdate () {
+        mpUpdateFrameCnt++;
+        if (mpUpdateFrameCnt != MP_UPD_FRAME_NUM) {
+            return;
+        }
         if (isActive) {
             magicPoint -= totalCost;
             if (magicPoint <= 0.0f) {
@@ -50,8 +58,16 @@ public class SkillManager : MonoBehaviour {
         }
     }
 
+    public void ReleaseSkill (string skillName) {
+        if (!skillDict[skillName]) {
+            skillDict[skillName] = true;
+        }
+    }
+
     void _ReplaceSkill (int num, System.Type type) {
-        Destroy(skillSlots[num]);
+        if (skillSlots[num] != null) {
+            Destroy(skillSlots[num]);
+        }
         skillSlots[num] = gameObject.AddComponent(type) as Skill;
         skillSlots[num].enabled = isActive;
     }
