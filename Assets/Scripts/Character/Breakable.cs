@@ -28,7 +28,7 @@ public class Breakable : MonoBehaviour {
     int invFrameCount = 0;
     bool isInvByDamage = false;
 
-    public int hitStopFrameNum = 20;
+    public int hitStopFrameNum = 16;
     int hitStopFrameCnt = 0;
     bool isHitStopping = false;
 

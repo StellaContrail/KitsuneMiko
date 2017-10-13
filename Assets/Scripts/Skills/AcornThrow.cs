@@ -9,7 +9,7 @@ public class AcornThrow : Skill {
 
     public override float cost {
         get {
-            return 0.5f;
+            return 1.2f;
         }
     }
 

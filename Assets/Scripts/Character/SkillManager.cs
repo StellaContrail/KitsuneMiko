@@ -9,7 +9,7 @@ public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
     public float maxMagicPoint = 100.0f;
     [System.NonSerialized]
-    public float magicPoint;
+    public float magicPoint = 0.0f;
     [System.NonSerialized]
     public float naturalRecovery = 1.0f;
 
@@ -27,10 +27,6 @@ public class SkillManager : MonoBehaviour {
     Skill[] skillSlots = new Skill[3];
     bool isActive = false;
     float totalCost;
-
-    void Awake () {
-        magicPoint = maxMagicPoint;
-    }
 
     void Start () {
         System.Type empty = typeof(EmptySkill);
