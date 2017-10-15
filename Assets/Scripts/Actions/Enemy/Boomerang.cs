@@ -8,7 +8,14 @@ public class Boomerang : MonoBehaviour {
     private Rigidbody2D rbody;
     private bool returnToThrower=false;
     private bool returnAtThrower = false;
+        
     private Vector2 targetPosition;
+    private enum SCALE_FLIP
+    {
+        BEFORE_FLIP,
+        FLIPPING,
+        FLIPPED
+    }
     private enum THROW_DIRECTION
     {
         RIGHT,
@@ -16,8 +23,8 @@ public class Boomerang : MonoBehaviour {
         
         NONE      
     }
-
-    private THROW_DIRECTION throwDirection = THROW_DIRECTION.NONE; 
+    private SCALE_FLIP scaleFlip = SCALE_FLIP.BEFORE_FLIP;
+    private THROW_DIRECTION throwDirection = THROW_DIRECTION.NONE;
     private Vector2 directionVector;
     private Vector2 returnAtVector;
     private Vector2 iniVector;
@@ -25,22 +32,22 @@ public class Boomerang : MonoBehaviour {
     public float boomerangSpeed;
     public float offset_y;
 
-    public void Ini(Transform transform,Vector2 targetPosiiton)
+    public void Ini(Transform transform,Vector2 targetPosition)
     {
         iniVector = transform.position;
-        this.transform.position = transform.position;
-        
+        iniVector.y += offset_y;
+        this.transform.position = new Vector2(transform.position.x,transform.position.y+offset_y);
 
-        this.targetPosition= targetPosiiton;
+        this.targetPosition= targetPosition;
         if (transform.localScale.x<0)
         {
             throwDirection = THROW_DIRECTION.LEFT;
-            returnAtVector = new Vector2(targetPosiiton.x - OVER_RUN, targetPosiiton.y);
+            returnAtVector = new Vector2(targetPosition.x - OVER_RUN, targetPosition.y);
         }
         else
         {
             throwDirection = THROW_DIRECTION.RIGHT;
-            returnAtVector = new Vector2(targetPosiiton.x + OVER_RUN,targetPosiiton.y);
+            returnAtVector = new Vector2(targetPosition.x + OVER_RUN,targetPosition.y);
         }
     }
 
@@ -69,8 +76,19 @@ public class Boomerang : MonoBehaviour {
 
                 if (returnToThrower)
                 {
-                    
                     direction = -1;
+                    switch (scaleFlip)
+                    {
+                        case SCALE_FLIP.BEFORE_FLIP:
+                            scaleFlip = SCALE_FLIP.FLIPPING;
+                            break;
+                        case SCALE_FLIP.FLIPPING:
+                            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                            scaleFlip = SCALE_FLIP.FLIPPED;
+                            break;
+                        case SCALE_FLIP.FLIPPED:
+                            break;
+                    }
                     if (iniVector.x > transform.position.x)
                     {
                         returnAtThrower = true;
@@ -86,10 +104,24 @@ public class Boomerang : MonoBehaviour {
                 }else
                 {
                     returnToThrower = true;
+                    
                 }
 
                 if(returnToThrower)
                 {
+                    switch (scaleFlip)
+                    {
+                        case SCALE_FLIP.BEFORE_FLIP:
+                            scaleFlip = SCALE_FLIP.FLIPPING;
+                            break;
+                        case SCALE_FLIP.FLIPPING:
+                            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                            scaleFlip = SCALE_FLIP.FLIPPED;
+                            break;
+                        case SCALE_FLIP.FLIPPED:
+                            //何もしない
+                            break;
+                    }
                     direction = 1;
                     if (iniVector.x < transform.position.x)
                     {
@@ -103,8 +135,6 @@ public class Boomerang : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        
-        
         rbody.velocity =new Vector2(direction * boomerangSpeed,0);
         Debug.Log(rbody.velocity);
 

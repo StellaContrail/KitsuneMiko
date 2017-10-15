@@ -73,8 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b9c58f98edad1449eed0fd02322a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomerangSpeed: 10
-  offset_y: 0
+  boomerangSpeed: 20
+  offset_y: 1
 --- !u!212 &212301970599185340
 SpriteRenderer:
   m_ObjectHideFlags: 1
