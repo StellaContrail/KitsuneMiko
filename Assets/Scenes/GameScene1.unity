@@ -1187,7 +1187,7 @@ Transform:
   m_GameObject: {fileID: 2004578460}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.0151, y: 0.95567, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 174859378}
   m_RootOrder: 63
@@ -5622,7 +5622,6 @@ GameObject:
   - component: {fileID: 2004578466}
   - component: {fileID: 2004578465}
   - component: {fileID: 2004578464}
-  - component: {fileID: 2004578462}
   - component: {fileID: 2004578461}
   m_Layer: 0
   m_Name: Enemy
@@ -5649,22 +5648,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &2004578462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004578460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b273e4d1a6549747b6eda38a7190075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjectNumber: 5
-  target: {fileID: 1196683616667812, guid: 93b0139dc4146d444870185916ca3585, type: 2}
-  timeInterval: 30
-  boomerangPrefab: {fileID: 1096181205669320, guid: aebc01ad199ff8542bc3a79830aec73a,
-    type: 2}
 --- !u!114 &2004578464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5672,7 +5655,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2004578460}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8de4df29e1846ff41bcbccd5d588637b, type: 3}
   m_Name: 
