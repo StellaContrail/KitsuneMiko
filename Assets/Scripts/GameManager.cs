@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 		
 	void Start () {
+        DontDestroyOnLoad(gameObject);
         RefreshScore();
         audioSource = this.gameObject.GetComponent<AudioSource>();
 	}
@@ -57,14 +58,16 @@ public class GameManager : MonoBehaviour {
         Invoke("GoBackGameTitle",2.0f);
        
     }
-    public void GameClear()
+
+    // シーン遷移
+    public void Next()
     {
         audioSource.PlayOneShot(clearSE);
         gameMode = GAME_MODE.CLEAR;
         textClear.SetActive(true);
-
-        Invoke("GoNextGameScene", 2.0f);
+        SceneManager.LoadScene("GameScene" + nextStageNum);
     }
+
     //スコア加算
     public void AddScore(int val)
     {
@@ -86,10 +89,5 @@ public class GameManager : MonoBehaviour {
     void GoBackGameTitle()
     {
         SceneManager.LoadScene("GameTitle");
-    }
-    void GoNextGameScene()
-    {
-
-        SceneManager.LoadScene("GameScene"+nextStageNum);
     }
 }
