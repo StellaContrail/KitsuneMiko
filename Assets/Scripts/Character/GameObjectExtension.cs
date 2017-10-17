@@ -8,10 +8,11 @@ public static class GameObjectExtension {
         Rigidbody2D rbody;
         Animator animator;
         ActionManager actionManager;
+        bool isKinematic;
         Vector2 velocity;
         float anglerVelocity;
 
-        int pauseCallCount = 0;
+        public int pauseCallCount = 0;
 
         public MotionState (GameObject obj) {
             rbody = obj.GetComponent<Rigidbody2D>();
@@ -32,6 +33,7 @@ public static class GameObjectExtension {
                     rbody.velocity = Vector2.zero;
                     anglerVelocity = rbody.angularVelocity;
                     rbody.angularVelocity = 0.0f;
+                    isKinematic = rbody.isKinematic;
                     rbody.isKinematic = true;
                 }
             }
@@ -42,7 +44,7 @@ public static class GameObjectExtension {
             pauseCallCount--;
             if (pauseCallCount == 0) {
                 if (rbody != null) {
-                    rbody.isKinematic = false;
+                    rbody.isKinematic = isKinematic;
                     rbody.velocity = velocity;
                     rbody.angularVelocity = anglerVelocity;
                 }
@@ -60,13 +62,21 @@ public static class GameObjectExtension {
         = new Dictionary<GameObject, MotionState>();
 
     public static void Pause (this GameObject obj) {
-        MotionState state = new MotionState(obj);
+        MotionState state;
+        if (motionStates.ContainsKey(obj)) {
+            state = motionStates[obj];
+        } else {
+            state = new MotionState(obj);
+            motionStates.Add(obj, state);
+        }
         state.Pause();
-        motionStates.Add(obj, state);
     }
 
     public static void Resume (this GameObject obj) {
-        motionStates[obj].Resume();
-        motionStates.Remove(obj);
+        MotionState state = motionStates[obj];
+        state.Resume();
+        if (state.pauseCallCount == 0) {
+            motionStates.Remove(obj);
+        }
     }
 }

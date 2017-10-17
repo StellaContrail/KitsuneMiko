@@ -4,6 +4,7 @@ using UnityEngine;
 
 [AddComponentMenu("Character/Capturable")]
 [DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Capturable : MonoBehaviour {
     public readonly float hitPointBoundary = 10.0f;
 

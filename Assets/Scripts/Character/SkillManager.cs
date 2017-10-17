@@ -54,6 +54,13 @@ public class SkillManager : MonoBehaviour {
         }
     }
 
+    void OnDisable () {
+        mpUpdateFrameCnt = 0;
+        if (isActive) {
+            Deactivate();
+        }
+    }
+
     public void ReleaseSkill (string skillName) {
         if (!skillDict[skillName]) {
             skillDict[skillName] = true;

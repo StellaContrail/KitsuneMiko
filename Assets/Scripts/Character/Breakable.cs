@@ -4,8 +4,9 @@ using UnityEngine;
 
 [AddComponentMenu("Character/Breakable")]
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Death))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Breakable : MonoBehaviour {
+
     static readonly Dictionary<string, HashSet<string>> DAMAGE_TAGS
         = new Dictionary<string, HashSet<string>> {
             {"Player", new HashSet<string> {"Enemy", "Neutral"}},
@@ -43,12 +44,18 @@ public class Breakable : MonoBehaviour {
     void FixedUpdate () {
         if (hitPoint <= 0.0f) {
             GetComponent<Death>().enabled = true;
-        } else if (capturable != null) {
+            return;
+        }
+        if (capturable != null) {
             float boundary = capturable.hitPointBoundary;
-            if (!capturable.enabled && hitPoint <= boundary) {
-                capturable.enabled = true;
-            } else if (capturable.enabled && hitPoint > boundary) {
-                capturable.enabled = false;
+            if (capturable.enabled) {
+                if (hitPoint > boundary) {
+                    capturable.enabled = false;
+                }
+            } else {
+                if (hitPoint <= boundary) {
+                    capturable.enabled = true;
+                }
             }
         }
         if (isInvByDamage) {
@@ -70,7 +77,7 @@ public class Breakable : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D col) {
-        if (isInvincible) {
+        if (!enabled || isInvincible) {
             return;
         }
         if (DAMAGE_TAGS[tag].Contains(col.tag)) {
@@ -90,6 +97,19 @@ public class Breakable : MonoBehaviour {
                     }
                 }
             }
+        }
+    }
+
+    void OnDisable () {
+        if (isInvByDamage) {
+            isInvByDamage = false;
+            invFrameCount = 0;
+            EndInvincible();
+        }
+        if (isHitStopping) {
+            isHitStopping = false;
+            hitStopFrameCnt = 0;
+            gameObject.Resume();
         }
     }
 

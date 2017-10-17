@@ -4,6 +4,7 @@ using UnityEngine;
 
 [AddComponentMenu("Character/Player Searcher")]
 [DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerSearcher : MonoBehaviour {
 
     List<Transform> players = new List<Transform>();
