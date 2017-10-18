@@ -5,10 +5,11 @@ using UnityEngine;
 public class SuperRush : Action {
 
     private Rigidbody2D rbody;
-    public float moveSpeed = 4;//移動速度
+    private float moveSpeed = 4;//移動速度
     private int count;//ボスが静止したフレーム数 
-    public int waitFrame = 120;//ボスが静止するフレーム数
+    private int waitFrame = 100;//ボスが静止するフレーム数
     private Vector3 bossPosition;//ボスの位置座標
+
 
     bool isDoing = false;
 
@@ -21,7 +22,7 @@ public class SuperRush : Action {
     }
 
     //ボスの移動状態を定義
-    public enum MOVE_STATUS
+    private enum MOVE_STATUS
     {
         MOVING,
         WAITING,
@@ -62,13 +63,11 @@ public class SuperRush : Action {
 
     void FixedUpdate()
     {
-        Debug.Log("I'm in SuperRush.");
+
         if (!isDoing)
         {
             return;
         }
-        Debug.Log("I'm in SuperRush.");
-
 
         if (moveStatus == MOVE_STATUS.WAITING)
         {
@@ -110,6 +109,7 @@ public class SuperRush : Action {
                 {
                     moveStatus = MOVE_STATUS.WAITING;
                     rbody.velocity = new Vector2(0, 0);
+                    transform.SetFaceDir(transform.GetFaceDir().Reverse());
                     isDoing = false;
                 }
 
