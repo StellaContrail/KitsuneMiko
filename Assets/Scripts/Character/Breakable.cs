@@ -71,7 +71,7 @@ public class Breakable : MonoBehaviour {
             if (hitStopFrameCnt > hitStopFrameNum) {
                 isHitStopping = false;
                 hitStopFrameCnt = 0;
-                gameObject.Resume();
+                MotionFreezer.Resume(gameObject);
             }
         }
     }
@@ -93,7 +93,7 @@ public class Breakable : MonoBehaviour {
                         hitStopFrameCnt = 0;
                     } else {
                         isHitStopping = true;
-                        gameObject.Pause();
+                        MotionFreezer.Pause(gameObject);
                     }
                 }
             }
@@ -109,7 +109,7 @@ public class Breakable : MonoBehaviour {
         if (isHitStopping) {
             isHitStopping = false;
             hitStopFrameCnt = 0;
-            gameObject.Resume();
+            MotionFreezer.Resume(gameObject);
         }
     }
 
