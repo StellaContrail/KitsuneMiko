@@ -7,7 +7,7 @@ public class JumpRectangle : Action
     private Rigidbody2D rbody;
 
     private float horizontalSpeed = 2;//水平移動の速度
-    public float verticalSpeed = 1;//垂直移動の速度
+    private float verticalSpeed = 1;//垂直移動の速度
     
 
     private OnGround onGround;
@@ -16,7 +16,7 @@ public class JumpRectangle : Action
 
 
     //移動方向
-    public enum MOVE_DIR
+    private enum MOVE_DIR
     {
         LEFT,
         RIGHT,
@@ -42,6 +42,11 @@ public class JumpRectangle : Action
 
     void FixedUpdate()
     {
+        if (!isDoing)
+        {
+            return;
+        }
+
         Vector3 bossPosition = transform.position;//ボスの座標
 
         //上移動
