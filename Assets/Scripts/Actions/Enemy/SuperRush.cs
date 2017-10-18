@@ -10,8 +10,11 @@ public class SuperRush : Action {
     public int waitFrame = 120;//ボスが静止するフレーム数
     private Vector3 bossPosition;//ボスの位置座標
 
+    bool isDoing = false;
+
+
     //移動方向を定義
-    public enum MOVE_DIR
+    private enum MOVE_DIR
     {
         LEFT,
         RIGHT,
@@ -27,42 +30,47 @@ public class SuperRush : Action {
     private MOVE_DIR moveDirection = MOVE_DIR.LEFT;//移動方向
     private MOVE_STATUS moveStatus = MOVE_STATUS.WAITING;//移動状態
 
-    public override bool IsDone()
-    {
-        return true;
-    }
-
     public override void Act(Dictionary<string, object> args)
-    {
+    { 
+        isDoing = true;
 
-    }
-
-    // Use this for initialization
-    void Start () {
-        rbody = GetComponent<Rigidbody2D>();
         bossPosition = transform.position;
         count = 0;
 
         if (bossPosition.x > 0)
         {
             moveDirection = MOVE_DIR.LEFT;
-            transform.localScale = new Vector2(1, 1);
         }
         else
         {
             moveDirection = MOVE_DIR.RIGHT;
-            transform.localScale = new Vector2(-1, 1);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public override bool IsDone()
+    {
+        return !isDoing;
+    }
+
+    
+
+    // Use this for initialization
+    void Start () {
+        rbody = GetComponent<Rigidbody2D>();
+       
+    }
 
     void FixedUpdate()
     {
-        if(moveStatus == MOVE_STATUS.WAITING)
+        Debug.Log("I'm in SuperRush.");
+        if (!isDoing)
+        {
+            return;
+        }
+        Debug.Log("I'm in SuperRush.");
+
+
+        if (moveStatus == MOVE_STATUS.WAITING)
         {
             if (count < waitFrame)
             {
@@ -86,6 +94,7 @@ public class SuperRush : Action {
                 {
                     moveStatus = MOVE_STATUS.WAITING;
                     rbody.velocity = new Vector2(0, 0);
+                    isDoing = false;
 
 
                 }
@@ -101,7 +110,7 @@ public class SuperRush : Action {
                 {
                     moveStatus = MOVE_STATUS.WAITING;
                     rbody.velocity = new Vector2(0, 0);
-
+                    isDoing = false;
                 }
 
             }

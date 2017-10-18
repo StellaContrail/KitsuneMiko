@@ -6,9 +6,14 @@ public class JumpRectangle : Action
 {
     private Rigidbody2D rbody;
 
-    public float horizontalSpeed = 2;//水平移動の速度
+    private float horizontalSpeed = 2;//水平移動の速度
     public float verticalSpeed = 1;//垂直移動の速度
-    private Vector3 bossPosition;//ボスの座標
+    
+
+    private OnGround onGround;
+
+    bool isDoing = false;
+
 
     //移動方向
     public enum MOVE_DIR
@@ -25,6 +30,7 @@ public class JumpRectangle : Action
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
+        onGround = GetComponent<OnGround>();
 
     }
 
@@ -36,24 +42,22 @@ public class JumpRectangle : Action
 
     void FixedUpdate()
     {
+        Vector3 bossPosition = transform.position;//ボスの座標
+
         //上移動
         if (moveDirection == MOVE_DIR.UP)
         {
             rbody.velocity = new Vector2(0, verticalSpeed);
-            bossPosition = transform.position;
 
             if (bossPosition.y > 3.3f)
             {
                 if (bossPosition.x < 0)
                 {
                     moveDirection = MOVE_DIR.RIGHT;
-                    transform.localScale = new Vector2(-1, 1);
                 }
                 else
                 {
                     moveDirection = MOVE_DIR.LEFT;
-                    transform.localScale = new Vector2(1, 1);
-
                 }
             }
         }
@@ -67,7 +71,7 @@ public class JumpRectangle : Action
             if (bossPosition.x > 6.0f)
             {
                 moveDirection = MOVE_DIR.DOWN;
-                transform.localScale = new Vector2(-1, 1);
+                transform.SetFaceDir(transform.GetFaceDir().Reverse());
             }
 
         }
@@ -81,7 +85,7 @@ public class JumpRectangle : Action
             if (bossPosition.x < -6.0f)
             {
                 moveDirection = MOVE_DIR.DOWN;
-                transform.localScale = new Vector2(1, 1);
+                transform.SetFaceDir(transform.GetFaceDir().Reverse());
 
             }
 
@@ -91,19 +95,26 @@ public class JumpRectangle : Action
         if (moveDirection == MOVE_DIR.DOWN)
         {
             rbody.velocity = new Vector2(0, -verticalSpeed);
-            transform.localScale = new Vector2(1, 1);
-            bossPosition = transform.position;
+            if(onGround.Check(new string[0]).isSatisfied)
+            {
+                Debug.Log("OnGrond.");
+                rbody.isKinematic = false;
+                rbody.velocity = Vector2.zero;
+                moveDirection = MOVE_DIR.UP;
+                isDoing = false;
+            }
         }
     }
 
     public override bool IsDone()
     {
-        return true;
+        return !isDoing;
     }
 
     public override void Act(Dictionary<string, object> args)
     {
-
+        isDoing = true;
+        rbody.isKinematic = true;
     }
 
 }
