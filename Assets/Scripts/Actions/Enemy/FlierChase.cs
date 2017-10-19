@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Actions/Enemy/Flier Chase")]
+[RequireComponent(typeof(Rigidbody2D))]
 public class FlierChase : Action {
     public float speed;
 

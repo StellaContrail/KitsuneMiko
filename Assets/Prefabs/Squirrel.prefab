@@ -333,7 +333,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: RangedAttack
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 1832683371289378, guid: a41ad156dec36954aa4f7cca24f0590d,
+    type: 2}
+  animationTrigger: attackRequired
 --- !u!212 &212076981788755174
 SpriteRenderer:
   m_ObjectHideFlags: 1
