@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         oldData.naturalRecovery = oldSkillManager.naturalRecovery;
         oldData.skillDict = oldSkillManager.skillDict;
 
-        SceneManager.LoadScene("GameScene" + nextStageNum);
+        SceneManager.LoadScene("Stage" + nextStageNum);
     }
 
     GameObject Fetch(string tag, LayerMask layer)
