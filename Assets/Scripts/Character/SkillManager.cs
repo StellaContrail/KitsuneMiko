@@ -25,7 +25,8 @@ public class SkillManager : MonoBehaviour {
     };
 
     Skill[] skillSlots = new Skill[3];
-    bool isActive = false;
+    [System.NonSerialized]
+    public bool isActive = false;
     float totalCost;
 
     void Start () {
@@ -67,6 +68,10 @@ public class SkillManager : MonoBehaviour {
         }
     }
 
+    public System.Type[] GetSetSkillTypes () {
+        return skillSlots.Select(skill => skill.GetType()).ToArray();
+    }
+
     void _ReplaceSkill (int num, System.Type type) {
         if (skillSlots[num] != null) {
             Destroy(skillSlots[num]);
@@ -102,6 +107,14 @@ public class SkillManager : MonoBehaviour {
         isActive = false;
         foreach (Skill skill in skillSlots) {
             skill.enabled = false;
+        }
+    }
+
+    public void ToggleActivation () {
+        if (isActive) {
+            Deactivate();
+        } else {
+            Activate();
         }
     }
 }
