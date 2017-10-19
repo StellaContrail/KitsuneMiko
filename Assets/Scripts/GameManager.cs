@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
 
     public int nextStageNum;//クリア後に移るステージナンバー
 
+    public LayerMask playerLayer;
+
     public GameObject textGameOver;
     public GameObject textClear;
     public GameObject textScoreNumber;
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour {
         GAMEOVER
     };
     public GAME_MODE gameMode = GAME_MODE.PLAY;
-
+    
 
     private int score = 0;
     private int displayScore = 0;
@@ -65,7 +67,30 @@ public class GameManager : MonoBehaviour {
         audioSource.PlayOneShot(clearSE);
         gameMode = GAME_MODE.CLEAR;
         textClear.SetActive(true);
-        SceneManager.LoadScene("GameScene" + nextStageNum);
+        GameObject oldPlayer = FetchPlayer();
+        Debug.Log(oldPlayer.GetComponent<Breakable>().hitPoint);
+        SceneManager.LoadScene("GameScene" + nextStageNum); 
+        GameObject newPlayer = FetchPlayer();
+        Debug.Log(oldPlayer.GetComponent<Breakable>().hitPoint);
+    }
+
+    GameObject FetchPlayer()
+    {
+        foreach (GameObject temp_player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Debug.Log(temp_player.name + " " + temp_player.layer);
+            if (temp_player.layer == playerLayer)
+            {
+                return temp_player as GameObject;
+            }
+            else
+            {
+                Debug.Log("NULL1");
+                return null;
+            }
+        }
+        Debug.Log("NULL2");
+        return null;
     }
 
     //スコア加算
