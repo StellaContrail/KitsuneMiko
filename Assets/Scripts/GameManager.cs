@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     {
         public float hitPoint, defencePoint, magicPoint, naturalRecovery;
         public Dictionary<string, bool> skillDict;
+        public Skill[] skillSlots;
     }
 
     //定数定義
@@ -17,17 +18,6 @@ public class GameManager : MonoBehaviour
     public int nextStageNum;//クリア後に移るステージナンバー
 
     public LayerMask playerLayer;
-
-    public GameObject textGameOver;
-    public GameObject textClear;
-    public GameObject textScoreNumber;
-    public enum GAME_MODE
-    {
-        PLAY,
-        CLEAR,
-        GAMEOVER
-    };
-    public GAME_MODE gameMode = GAME_MODE.PLAY;
 
 
     private int score = 0;
@@ -41,7 +31,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        RefreshScore();
         audioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
@@ -56,8 +45,6 @@ public class GameManager : MonoBehaviour
             {
                 displayScore = score;
             }
-
-            RefreshScore();
         }
 
         if (isSceneLoading)
@@ -81,6 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if (oldData != null)
         {
+
             GameObject newPlayer = Fetch("Player", playerLayer);
             Breakable newBreakable = newPlayer.GetComponent<Breakable>();
             SkillManager newSkillManager = newPlayer.GetComponent<SkillManager>();
@@ -89,13 +77,13 @@ public class GameManager : MonoBehaviour
             newSkillManager.magicPoint = oldData.magicPoint;
             newSkillManager.naturalRecovery = oldData.naturalRecovery;
             newSkillManager.skillDict = oldData.skillDict;
+            //newSkillManager.ReplaceSkills();
         }
     }
 
     public void GameOver()
     {
         audioSource.PlayOneShot(gameoverSE);
-        textGameOver.SetActive(true);
 
         Invoke("GoBackGameTitle", 2.0f);
     }
@@ -106,8 +94,6 @@ public class GameManager : MonoBehaviour
     public void Next()
     {
         audioSource.PlayOneShot(clearSE);
-        gameMode = GAME_MODE.CLEAR;
-        textClear.SetActive(true);
         isSceneLoading = true;
 
         GameObject oldPlayer = Fetch("Player", playerLayer);
@@ -143,11 +129,6 @@ public class GameManager : MonoBehaviour
         {
             score = MAX_SCORE;
         }
-    }
-    //スコア表示を更新
-    void RefreshScore()
-    {
-        textScoreNumber.GetComponent<Text>().text = displayScore.ToString();
     }
 
     //タイトル画面に戻る
