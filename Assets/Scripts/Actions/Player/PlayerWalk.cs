@@ -33,6 +33,9 @@ public class PlayerWalk : Action {
                 transform.localScale = new Vector2(-1, 1);
                 break;
         }
+
+        gameObject.GetComponent<Animator>().SetBool("stop", moveSpeed == 0);
+
         rbody.velocity = new Vector2(moveSpeed, rbody.velocity.y);
     }
 }
