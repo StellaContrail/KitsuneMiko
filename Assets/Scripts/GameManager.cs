@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     //定数定義
     private const int MAX_SCORE = 999999;
 
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour {
         GAMEOVER
     };
     public GAME_MODE gameMode = GAME_MODE.PLAY;
-    
+
 
     private int score = 0;
     private int displayScore = 0;
@@ -29,16 +30,18 @@ public class GameManager : MonoBehaviour {
     public AudioClip clearSE;
     public AudioClip gameoverSE;
     private AudioSource audioSource;
-	// Use this for initialization
-		
-	void Start () {
+    // Use this for initialization
+
+    void Start()
+    {
         DontDestroyOnLoad(gameObject);
         RefreshScore();
         audioSource = this.gameObject.GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         if (score > displayScore)
         {
             displayScore += 10;
@@ -50,46 +53,85 @@ public class GameManager : MonoBehaviour {
 
             RefreshScore();
         }
-	}
+
+        if (isSceneLoading)
+        {
+            //次のシーンが呼ばれ、Playerの存在を確認したら終了
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            if (currentSceneName == "GameScene" + nextStageNum)
+            {
+                GameObject newPlayer = Fetch("Player", playerLayer);
+                if (newPlayer != null)
+                {
+                    isSceneLoading = false;
+                    Initialize();
+                }
+            }
+        }
+    }
+
+    // when new scene loaded, this method is called in order to set up inital settings
+    void Initialize()
+    {
+        if (oldData != null)
+        {
+            GameObject newPlayer = Fetch("Player", playerLayer);
+            Breakable newBreakable = newPlayer.GetComponent<Breakable>();
+            SkillManager newSkillManager = newPlayer.GetComponent<SkillManager>();
+            newBreakable.hitPoint = oldData.hitPoint;
+            newBreakable.defencePoint = oldData.defencePoint;
+            newSkillManager.magicPoint = oldData.magicPoint;
+            newSkillManager.naturalRecovery = oldData.naturalRecovery;
+            newSkillManager.skillDict = oldData.skillDict;
+        }
+    }
 
     public void GameOver()
     {
         audioSource.PlayOneShot(gameoverSE);
         textGameOver.SetActive(true);
 
-        Invoke("GoBackGameTitle",2.0f);
-       
+        Invoke("GoBackGameTitle", 2.0f);
+    }
+
+    class Data
+    {
+        public float hitPoint, defencePoint, magicPoint, naturalRecovery;
+        public Dictionary<string, bool> skillDict;
     }
 
     // シーン遷移
+    bool isSceneLoading = false;
+    Data oldData;
     public void Next()
     {
         audioSource.PlayOneShot(clearSE);
         gameMode = GAME_MODE.CLEAR;
         textClear.SetActive(true);
-        GameObject oldPlayer = FetchPlayer();
-        Debug.Log(oldPlayer.GetComponent<Breakable>().hitPoint);
-        SceneManager.LoadScene("GameScene" + nextStageNum); 
-        GameObject newPlayer = FetchPlayer();
-        Debug.Log(oldPlayer.GetComponent<Breakable>().hitPoint);
+        isSceneLoading = true;
+
+        GameObject oldPlayer = Fetch("Player", playerLayer);
+        Breakable oldBreakable = oldPlayer.GetComponent<Breakable>();
+        SkillManager oldSkillManager = oldPlayer.GetComponent<SkillManager>();
+        oldData = new Data();
+        oldData.hitPoint = oldBreakable.hitPoint;
+        oldData.defencePoint = oldBreakable.defencePoint;
+        oldData.magicPoint = oldSkillManager.magicPoint;
+        oldData.naturalRecovery = oldSkillManager.naturalRecovery;
+        oldData.skillDict = oldSkillManager.skillDict;
+
+        SceneManager.LoadScene("GameScene" + nextStageNum);
     }
 
-    GameObject FetchPlayer()
+    GameObject Fetch(string tag, LayerMask layer)
     {
-        foreach (GameObject temp_player in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (GameObject temp_object in GameObject.FindGameObjectsWithTag(tag))
         {
-            Debug.Log(temp_player.name + " " + temp_player.layer);
-            if (temp_player.layer == playerLayer)
+            if (temp_object.layer == System.Convert.ToInt32(System.Convert.ToString(layer.value, 2).Length) - 1)
             {
-                return temp_player as GameObject;
-            }
-            else
-            {
-                Debug.Log("NULL1");
-                return null;
+                return temp_object as GameObject;
             }
         }
-        Debug.Log("NULL2");
         return null;
     }
 
@@ -100,14 +142,12 @@ public class GameManager : MonoBehaviour {
         if (score > MAX_SCORE)
         {
             score = MAX_SCORE;
-
         }
     }
     //スコア表示を更新
     void RefreshScore()
     {
         textScoreNumber.GetComponent<Text>().text = displayScore.ToString();
-        
     }
 
     //タイトル画面に戻る
