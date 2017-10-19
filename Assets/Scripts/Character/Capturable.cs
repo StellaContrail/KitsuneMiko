@@ -6,7 +6,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Capturable : MonoBehaviour {
-    public readonly float hitPointBoundary = 10.0f;
+
+    // インスタンスからアクセスするためにstaticは付けていない
+    public readonly float hitPointBoundary = 50.0f;
 
     public string skill;
 

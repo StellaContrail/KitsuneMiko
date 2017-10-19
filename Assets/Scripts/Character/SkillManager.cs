@@ -7,11 +7,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
-    public float maxMagicPoint = 100.0f;
+    public float maxMagicPoint = 1000.0f;
     [System.NonSerialized]
     public float magicPoint = 0.0f;
     [System.NonSerialized]
-    public float naturalRecovery = 1.0f;
+    public float naturalRecovery = 2.0f;
 
     static readonly int MP_UPD_FRAME_NUM = 10;
     int mpUpdateFrameCnt = 0;
