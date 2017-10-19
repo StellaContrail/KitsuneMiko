@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    class Data
+    {
+        public float hitPoint, defencePoint, magicPoint, naturalRecovery;
+        public Dictionary<string, bool> skillDict;
+    }
+
     //定数定義
     private const int MAX_SCORE = 999999;
 
@@ -58,7 +64,7 @@ public class GameManager : MonoBehaviour
         {
             //次のシーンが呼ばれ、Playerの存在を確認したら終了
             string currentSceneName = SceneManager.GetActiveScene().name;
-            if (currentSceneName == "GameScene" + nextStageNum)
+            if (currentSceneName == "Stage" + nextStageNum)
             {
                 GameObject newPlayer = Fetch("Player", playerLayer);
                 if (newPlayer != null)
@@ -92,12 +98,6 @@ public class GameManager : MonoBehaviour
         textGameOver.SetActive(true);
 
         Invoke("GoBackGameTitle", 2.0f);
-    }
-
-    class Data
-    {
-        public float hitPoint, defencePoint, magicPoint, naturalRecovery;
-        public Dictionary<string, bool> skillDict;
     }
 
     // シーン遷移
