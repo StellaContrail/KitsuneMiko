@@ -134,7 +134,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!50 &50472515790793764
 Rigidbody2D:
   serializedVersion: 4
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04903829, y: 0.4051291}
+  m_Offset: {x: -0.0973326, y: 0.3528103}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -178,7 +178,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.148078, y: 0.8102583}
+  m_Size: {x: 0.82611585, y: 0.7056207}
   m_EdgeRadius: 0
 --- !u!61 &61964577882517484
 BoxCollider2D:
@@ -217,8 +217,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06538525, y: 0.3397444}
-  m_Size: {x: 0.9192351, y: 0.67949015}
+  m_Offset: {x: -0.089981645, y: 0.3397444}
+  m_Size: {x: 0.8700448, y: 0.67949015}
   m_Direction: 1
 --- !u!95 &95740037112303786
 Animator:
@@ -399,7 +399,7 @@ MonoBehaviour:
   maxHitPoint: 120
   defencePoint: 1
   invFrameNum: 0
-  hitStopFrameNum: 20
+  hitStopFrameNum: 16
 --- !u!212 &212999629234708820
 SpriteRenderer:
   m_ObjectHideFlags: 1

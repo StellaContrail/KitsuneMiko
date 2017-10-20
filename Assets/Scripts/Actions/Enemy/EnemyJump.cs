@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [AddComponentMenu("Actions/Enemy/Enemy Jump")]
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyJump : Action {
     public float vy;
 

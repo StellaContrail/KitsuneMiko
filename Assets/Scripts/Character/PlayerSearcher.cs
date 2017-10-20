@@ -4,6 +4,7 @@ using UnityEngine;
 
 [AddComponentMenu("Character/Player Searcher")]
 [DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerSearcher : MonoBehaviour {
 
     List<Transform> players = new List<Transform>();
@@ -13,13 +14,21 @@ public class PlayerSearcher : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D col) {
-        if (col.tag == "Player" && col.GetComponentInParent<Breakable>() != null) {
+        if (
+                col.tag == "Player"
+                && col.GetComponentInParent<PlayerIdentity>() != null
+                && col.transform.parent != null
+            ) {
             players.Add(col.transform.parent);
         }
     }
 
     void OnTriggerExit2D (Collider2D col) {
-        if (col.tag == "Player" && col.GetComponentInParent<Breakable>() != null) {
+        if (
+            col.tag == "Player"
+            && col.GetComponentInParent<PlayerIdentity>() != null
+            && col.transform.parent != null
+        ) {
             players.Remove(col.transform.parent);
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [AddComponentMenu("Actions/Enemy/Melee Attack")]
+[RequireComponent(typeof(Animator))]
 public class MeleeAttack : Action {
     public string animationTrigger;
 

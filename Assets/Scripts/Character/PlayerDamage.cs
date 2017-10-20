@@ -4,6 +4,7 @@ using UnityEngine;
 
 [AddComponentMenu("Character/Player Damage")]
 public class PlayerDamage : Damage {
+
     static SortedDictionary<int, DamageAttribute> commonAttributes
         = new SortedDictionary<int, DamageAttribute>();
 

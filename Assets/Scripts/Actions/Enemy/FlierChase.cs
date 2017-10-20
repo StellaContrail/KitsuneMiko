@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Actions/Enemy/Flier Chase")]
+[RequireComponent(typeof(Rigidbody2D))]
 public class FlierChase : Action {
     public float speed;
 
@@ -19,7 +20,9 @@ public class FlierChase : Action {
     public override void Act (Dictionary<string, object> args) {
         Transform target = (Transform)args["target"];
         Vector2 dir = ((Vector2)(target.position - transform.position)).normalized;
-        transform.SetFaceDir(dir.GenerateFaceDir());
+        if (dir.x != 0.0f) {
+            transform.SetFaceDir(dir.GenerateFaceDir());
+        }
         rbody.velocity = speed * dir;
     }
 }

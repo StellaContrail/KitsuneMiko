@@ -9,7 +9,7 @@ public class DurableBody : Skill {
 
     public override float cost {
         get {
-            return 0.1f;
+            return 0.5f;
         }
     }
 
