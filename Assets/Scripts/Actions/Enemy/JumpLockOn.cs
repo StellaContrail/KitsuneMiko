@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpLockOn : MonoBehaviour {
 
-    public PlayerManager player;
+    public GameObject player;
     public LayerMask blockLayer;
     
     private enum ATTACK_STATE
