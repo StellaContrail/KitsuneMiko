@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangeManager : MonoBehaviour {
 
-    public string StageName;
-    public GameObject player;
+    public GameObject Black;
+    private Rigidbody2D rbody;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,14 +14,23 @@ public class SceneChangeManager : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(StageName);
-            player.GetComponent<PlayerManager>().sceneChange();
+            Black.SetActive(true);
+            rbody.velocity = new Vector2(30, 0);
+            Debug.Log("");
+        }
+        if(collision.gameObject.tag=="Finish")
+        {
+            rbody.velocity = new Vector2(0, 0);
+            //GameObject.Find("GameManager").GetComponent<GameManager>().Next();
+            //上の//を削除してください
         }
     }
 
     // Use this for initialization
     void Start () {
-		
+        rbody = Black.GetComponent<Rigidbody2D>();
+        
+        
 	}
 	
 	// Update is called once per frame
