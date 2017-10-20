@@ -8,6 +8,8 @@ using UnityEngine;
  *    actionConfigsを変更せずに直接orderedActionsを設定するように変更する可能性がある
  */
 
+[AddComponentMenu("Character/Action Manager")]
+[DisallowMultipleComponent]
 public class ActionManager : MonoBehaviour {
 
     /*  各Actionの設定のリスト
@@ -15,12 +17,17 @@ public class ActionManager : MonoBehaviour {
      */
     public List<ActionConfig> actionConfigs;
 
+#if UNITY_EDITOR
+    [Space(15)]
+    public string configFile;
+#endif
+
     /*  順序化されたActionConfig
      *  + ActionConfigのorderをDictionaryのKeyとした辞書
      *    同じorderのものはリストにまとめられる
      *  + actionConfigsを変更した際に更新される
      */
-    protected SortedDictionary<int, List<ActionConfig>> orderedActions
+    SortedDictionary<int, List<ActionConfig>> orderedActions
         = new SortedDictionary<int, List<ActionConfig>>();
 
     /*  現在実行中のActionConfigのリスト
@@ -28,19 +35,19 @@ public class ActionManager : MonoBehaviour {
      *  + doingActions内のActionConfigはFixedUpdateのはじめにAction.IsDoneが
      *    呼ばれ，trueだった場合はリストから削除される
      */
-    protected List<ActionConfig> doingActions = new List<ActionConfig>();
+    List<ActionConfig> doingActions = new List<ActionConfig>();
 
     /*  現在ブロックされるActionの型のリスト
      *  + blockActionTypesはdoingActionsに基づいて設定される
      *  + doingActionsとともにActionの実行の際と，FixedUpdateのはじめに更新される
      */
-    protected List<System.Type> blockActionTypes = new List<System.Type>();
+    List<System.Type> blockActionTypes = new List<System.Type>();
 
     /*
      *  + actionConfigsの初期化処理
      *  + orderedActionsの更新
      */
-    protected virtual void Start () {
+    void Start () {
         foreach (ActionConfig action in actionConfigs) {
             action.Init(this);
         }
@@ -51,7 +58,7 @@ public class ActionManager : MonoBehaviour {
      *  + actionConfigsを参照し，orderをKeyとして辞書化してorderedActionsに入れる
      *  + 同じorderのActionConfigはリストとしてひとまとめにされる
      */
-    protected virtual void SortActions () {
+    void SortActions () {
         orderedActions.Clear();
         foreach (ActionConfig action in actionConfigs) {
             int order = action.order;
@@ -68,7 +75,7 @@ public class ActionManager : MonoBehaviour {
      *  + actionConfigsにActionConfigを追加
      *  + 追加後はorderedActionsを更新する
      */
-    public virtual void AddActions (ActionConfig[] actions) {
+    public void AddActions (ActionConfig[] actions) {
         foreach (ActionConfig action in actions) {
             action.Init(this);
         }
@@ -81,14 +88,9 @@ public class ActionManager : MonoBehaviour {
      *  + actionConfigsから指定されたActionConfigを削除する
      *  + 削除後はorderedActionsを更新する
      */
-    public virtual void RemoveActions (ActionConfig[] actions) {
+    public void RemoveActions (ActionConfig[] actions) {
         actionConfigs.RemoveAll(action => actions.Contains(action));
         SortActions();
-    }
-
-    //  deriveTypeがbaseTypeの継承かそれ自体であることを判定する関数
-    protected static bool IsClassOf (System.Type deriveType, System.Type baseType) {
-        return deriveType == baseType || deriveType.IsSubclassOf(baseType);
     }
 
     /*  渡されたActionConfigのリストから実行不可のものを取り除くメソッド
@@ -97,12 +99,12 @@ public class ActionManager : MonoBehaviour {
      *    - blockActionsに指定されているもの
      *    - 条件（conditions）を満たしていないもの
      */
-    protected virtual List<ActionConfig> RemoveNeedless (List<ActionConfig> actions) {
+    List<ActionConfig> RemoveNeedless (List<ActionConfig> actions) {
         List<ActionConfig> availableActions = new List<ActionConfig>();
         foreach (ActionConfig action in actions) {
             System.Type actionType = action.action.GetType();
             if (action.action.enabled
-                && !blockActionTypes.Any(type => IsClassOf(actionType, type))
+                && !blockActionTypes.Any(type => actionType.IsClassOf(type))
                 && action.IsAvailable()
             ) {
                 availableActions.Add(action);
@@ -112,17 +114,16 @@ public class ActionManager : MonoBehaviour {
     }
 
     //  リストからweightを重みとして確率的にActionConfigを選択するメソッド
-    protected virtual ActionConfig SelectRandom (List<ActionConfig> actions) {
-        ActionConfig selectedAction = actions[actions.Count - 1];
+    ActionConfig SelectRandom (List<ActionConfig> actions) {
         int totalWeight = actions.Sum(action => action.weight);
         float rnd = Random.value * totalWeight;
         foreach (ActionConfig action in actions) {
             rnd -= action.weight;
-            if (rnd <= 0) {
-                selectedAction = action;
+            if (rnd <= 0.0f) {
+                return action;
             }
         }
-        return selectedAction;
+        return actions[0];
     }
 
     /*  ActionConfigのActionを実行するためのメソッド
@@ -130,7 +131,7 @@ public class ActionManager : MonoBehaviour {
      *  + doingActionsにActionConfigを追加
      *  + blockActionTypesにActionConfigのblockActionTypesを追加
      */
-    protected virtual void DoAction (ActionConfig action) {
+    void DoAction (ActionConfig action) {
         action.Act();
         if (!doingActions.Contains(action)) {
             doingActions.Add(action);
@@ -143,7 +144,7 @@ public class ActionManager : MonoBehaviour {
      *    終了しているならdoingActionsから削除する
      *  + 各doingActionsによってblockActionTypesを更新する
      */
-    protected virtual void UpdateBlock () {
+    void UpdateBlock () {
         blockActionTypes.Clear();
         for (int i = doingActions.Count - 1; i >= 0; i--) {
             if (doingActions[i].action.IsDone()) {
@@ -161,7 +162,7 @@ public class ActionManager : MonoBehaviour {
      *     2) 残ったActionConfigが複数あれば確率的に選択
      *     3) ActionConfigのActionを実行（ActionConfigがなければ何もしない）
      */
-    protected virtual void FixedUpdate () {
+    void FixedUpdate () {
         UpdateBlock();
         foreach (List<ActionConfig> actions in orderedActions.Values) {
             List<ActionConfig> availableActions = RemoveNeedless(actions);
@@ -179,6 +180,13 @@ public class ActionManager : MonoBehaviour {
     }
 }
 
+public static class TypeExtension {
+    //  deriveTypeがbaseTypeの継承かそれ自体であることを判定する関数
+    public static bool IsClassOf (this System.Type deriveType, System.Type baseType) {
+        return deriveType == baseType || deriveType.IsSubclassOf(baseType);
+    }
+}
+
 [System.Serializable]
 public class ActionConfig {
     public string actionName;
@@ -192,13 +200,13 @@ public class ActionConfig {
     [System.NonSerialized]
     public System.Type[] blockActionTypes;
 
-    protected Dictionary<string, object> args = new Dictionary<string, object>();
+    Dictionary<string, object> args = new Dictionary<string, object>();
 
     public ActionConfig () {}
 
     public ActionConfig (
             string actionName,
-            int order = 1,
+            int order = 0,
             ConditionConfig[] conditions = null,
             int weight = 1,
             string[] blockActions = null
@@ -214,7 +222,7 @@ public class ActionConfig {
         }
     }
 
-    public virtual void Init (ActionManager manager) {
+    public void Init (ActionManager manager) {
         action = manager.GetComponents<Action>().First(
             elm => elm.actionName == actionName);
 
@@ -228,7 +236,7 @@ public class ActionConfig {
         }
     }
 
-    public virtual bool IsAvailable () {
+    public bool IsAvailable () {
         args.Clear();
         foreach (ConditionConfig condition in conditions) {
             ConditionState state = condition.Check();
@@ -242,7 +250,7 @@ public class ActionConfig {
         return true;
     }
 
-    public virtual void Act () {
+    public void Act () {
         action.Act(args);
     }
 }
@@ -253,7 +261,7 @@ public class ConditionConfig {
     public string[] args = new string[0];
     public bool not = false;
 
-    protected Condition condition;
+    Condition condition;
 
     public ConditionConfig () {}
 
@@ -269,12 +277,12 @@ public class ConditionConfig {
         }
     }
 
-    public virtual void Init (ActionManager manager) {
+    public void Init (ActionManager manager) {
         condition = manager.GetComponents<Condition>().First(
             elm => elm.conditionName == conditionName);
     }
 
-    public virtual ConditionState Check () {
+    public ConditionState Check () {
         ConditionState state = condition.Check(args);
         state.isSatisfied ^= not;
         return state;
