@@ -28,7 +28,8 @@ public class PlayerAttack : Action
     public GameObject purificationStick;
     Animator animator;
     PlayerAttackCondition playerAttackCondition;
-
+    RuntimeAnimatorController attackOriginalAnimation;
+    public AnimatorOverrideController[] attackOverrideAnimations;
 
     public override void Act(Dictionary<string, object> args)
     {
@@ -57,6 +58,7 @@ public class PlayerAttack : Action
     void Start()
     {
         animator = GetComponent<Animator>();
+        attackOriginalAnimation = animator.runtimeAnimatorController;
         playerAttackCondition = gameObject.GetComponent<PlayerAttackCondition>();
         presentWeapon = purificationStick;
     }
@@ -91,6 +93,7 @@ public class PlayerAttack : Action
         // １回目の攻撃の処理
         if (nextNumber == 1)
         {
+            animator.runtimeAnimatorController = attackOriginalAnimation;
             animator.SetTrigger("attack");
             presentWeapon.SetActive(true);
             nextNumber++;
@@ -103,6 +106,7 @@ public class PlayerAttack : Action
             // 攻撃が予約されているなら攻撃実行
             if (isNextRegistered)
             {
+                animator.runtimeAnimatorController = attackOverrideAnimations[nextNumber - 2];
                 animator.SetTrigger("attack");
                 presentWeapon.SetActive(true);
                 nextNumber++;
