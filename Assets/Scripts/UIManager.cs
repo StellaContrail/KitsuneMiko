@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
     
-    private float MAX_HP = 100;
-    private float MAX_MP = 50;
+    GameObject player;
+
+    private float MAX_HP = 1000;
+    private float MAX_MP = 1000;
     
     private Sprite skill1A;
     private Sprite skill1B;
@@ -47,6 +50,8 @@ public class UIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        player = GameObject.FindGameObjectsWithTag("Player").First(obj => obj.GetComponent<PlayerIdentity>() != null);
+
         skill1A = Resources.Load<Sprite>("Images/block");
         skill1B = Resources.Load<Sprite>("Images/bonz_run1");
         skill1C = Resources.Load<Sprite>("Images/bonz_jump");
@@ -102,6 +107,7 @@ public class UIManager : MonoBehaviour {
         bag.sprite = bagSprite;
     }
 
+    
     // Update is called once per frame
     void Update() {
 
@@ -168,6 +174,7 @@ public class UIManager : MonoBehaviour {
             num++;
         }
 	}
+    
 
     //スキルスロット(1~3)の指定:skillNum
     //スキル名:skillName
@@ -304,4 +311,13 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    void SetMP(float val)
+    {
+        this.mp = val;
+    }
+
+    void FixedUpdate()
+    {
+        SetHP(player.GetComponent<Breakable>().hitPoint);
+    }
 }
