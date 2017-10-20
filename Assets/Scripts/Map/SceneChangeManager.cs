@@ -16,7 +16,7 @@ public class SceneChangeManager : MonoBehaviour {
         {
             Black.SetActive(true);
             rbody.velocity = new Vector2(30, 0);
-            Debug.Log("");
+            
         }
         if(collision.gameObject.tag=="Finish")
         {
