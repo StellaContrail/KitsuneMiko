@@ -21,7 +21,8 @@ public class SkillManager : MonoBehaviour {
         {"EmptySkill", true},
         {"DurableBody", false},
         {"Rapidity", false},
-        {"AcornThrow", false}
+        {"AcornThrow", false},
+        {"SecondJump", false}
     };
 
     Skill[] skillSlots = new Skill[3];
@@ -35,6 +36,7 @@ public class SkillManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        Debug.Log(skillDict["SecondJump"]);
         mpUpdateFrameCnt++;
         if (mpUpdateFrameCnt != MP_UPD_FRAME_NUM) {
             return;
