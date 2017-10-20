@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     {
         public float hitPoint, defencePoint, magicPoint, naturalRecovery;
         public Dictionary<string, bool> skillDict;
-        public Skill[] skillSlots;
+        public bool isActive;
+        public System.Type[] skills;
     }
 
     //定数定義
@@ -77,7 +78,11 @@ public class GameManager : MonoBehaviour
             newSkillManager.magicPoint = oldData.magicPoint;
             newSkillManager.naturalRecovery = oldData.naturalRecovery;
             newSkillManager.skillDict = oldData.skillDict;
-            //newSkillManager.ReplaceSkills();
+            newSkillManager.ReplaceSkills(oldData.skills);
+            if (oldData.isActive)
+            {
+                newSkillManager.Activate();
+            }
         }
     }
 
@@ -105,6 +110,8 @@ public class GameManager : MonoBehaviour
         oldData.magicPoint = oldSkillManager.magicPoint;
         oldData.naturalRecovery = oldSkillManager.naturalRecovery;
         oldData.skillDict = oldSkillManager.skillDict;
+        oldData.isActive = oldSkillManager.isActive;
+        oldData.skills = oldSkillManager.GetSetSkillTypes();
 
         SceneManager.LoadScene("Stage" + nextStageNum);
     }
