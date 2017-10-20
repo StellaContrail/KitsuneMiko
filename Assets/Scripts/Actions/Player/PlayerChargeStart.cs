@@ -11,6 +11,7 @@ public class PlayerChargeStart : Action
     public GameObject captureBox;
 
     // IsDone : true => when Charge ends
+    [System.NonSerialized]
     public bool _IsDone = false;
     public override bool IsDone()
     {
@@ -28,7 +29,7 @@ public class PlayerChargeStart : Action
         isCharging = true;
         elapsedTime = 0f;
         gameObject.GetComponent<PlayerChargeStartCondition>().Deactivate();
-
+        gameObject.GetComponent<Animator>().SetBool("isCharging", true);
     }
 
     void Update()

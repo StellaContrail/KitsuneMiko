@@ -5,42 +5,40 @@ using UnityEngine;
 public class PlayerChargeEnd : Action {
 
     public GameObject captureBox;
-
+    Animator animator;
     bool _IsDone = false;
 	public override bool IsDone()
 	{
         return _IsDone;
     }
 
+    void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+    }
+
 	public override void Act(Dictionary<string, object> args)
 	{
-        _IsDone = false;
-        Debug.Log("Attempt to capture");
-        captureBox.SetActive(true);
-		elapsedTime = 0f;
-        isCapturing = true;
+        animator.SetBool("isCharging", false);
+        animator.SetTrigger("release");
         gameObject.GetComponent<PlayerChargeEndCondition>().Deactivate();
     }
 
-	// TODO: Animationのeventで実装してcapturingTimeは消すつもり
-    public float capturingTime = 0.8f;
-    float elapsedTime = 0f;
-    bool isCapturing = false;
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-	{
-		if (isCapturing)
-		{
-            elapsedTime += Time.deltaTime;
+    bool isChargeAnimationFinished = true;
+    // condition : 0 => Animation Started, 1 => Animation Ended
+    void ChargeAnimationFlag(int condition)
+    {
+        isChargeAnimationFinished = condition == 1;
+        if (!isChargeAnimationFinished)
+        {
+            captureBox.SetActive(true);
+            _IsDone = false;
         }
-
-		if (isCapturing && elapsedTime > capturingTime)
-		{
-			captureBox.SetActive(false);
+        else if (isChargeAnimationFinished)
+        {
+            captureBox.SetActive(false);
             _IsDone = true;
-		}
-	}
+        }
+    }
 
 }

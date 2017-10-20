@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerJumpRiseCondition : Condition {
 
-    public LayerMask groundLayer;
-
     [System.NonSerialized]
     public ConditionState Status;
 	public override ConditionState Check(string[] args)
 	{
         return Status;
     }
-    
+    Animator animator;
+
 	// Use this for initialization
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
         Status = new ConditionState();
         Status.isSatisfied = false;
     }
@@ -37,13 +37,7 @@ public class PlayerJumpRiseCondition : Condition {
     {
         get
         {
-            bool onGround =
-                Physics2D.Linecast(transform.position - (transform.right * 0.3f),
-                transform.position - (transform.up * 0.1f), groundLayer) ||
-                Physics2D.Linecast(transform.position + (transform.right * 0.3f),
-                transform.position - (transform.up * 0.1f), groundLayer);
-
-            return onGround;
+            return animator.GetBool("onGround");
         }
         
     }
