@@ -9,8 +9,8 @@ public class Acorn : RangedWeapon {
     static readonly float V_IY = 10.0f;
     static readonly float OMEGA = 1000.0f;
 
-    public override void Init (string tag, Transform attacker) {
-        base.Init(tag, attacker);
+    public override void Init (Transform attacker) {
+        base.Init(attacker);
         Rigidbody2D rbody = GetComponent<Rigidbody2D>();
         float dir = (float)attacker.GetFaceDir();
         rbody.velocity = new Vector2(dir * V_IX, V_IY);

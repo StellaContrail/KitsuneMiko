@@ -7,6 +7,7 @@ using UnityEngine;
 public class RangedAttack : Action {
 
     public GameObject weaponPrefab;
+    public Vector2 positionDiff = Vector2.zero;
     public string animationTrigger;
 
     Animator animator;
@@ -33,7 +34,14 @@ public class RangedAttack : Action {
     }
 
     public void GenerateWeapon () {
-        Instantiate(weaponPrefab)
-            .GetComponent<RangedWeapon>().Init(tag, transform);
+        Vector3 diff = new Vector3(
+            (float)transform.GetFaceDir() * positionDiff.x,
+            positionDiff.y
+        );
+        Instantiate(
+                weaponPrefab,
+                transform.position + diff,
+                Quaternion.identity
+            ).GetComponent<RangedWeapon>().Init(transform);
     }
 }

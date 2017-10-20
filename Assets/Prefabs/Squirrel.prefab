@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionConfigs:
   - actionName: RangedAttack
-    order: 1
+    order: 0
     conditions:
     - conditionName: FoundPlayer
       args: []
@@ -335,6 +335,7 @@ MonoBehaviour:
   actionName: RangedAttack
   weaponPrefab: {fileID: 1832683371289378, guid: a41ad156dec36954aa4f7cca24f0590d,
     type: 2}
+  positionDiff: {x: 0.5, y: 0.5}
   animationTrigger: attackRequired
 --- !u!212 &212076981788755174
 SpriteRenderer:

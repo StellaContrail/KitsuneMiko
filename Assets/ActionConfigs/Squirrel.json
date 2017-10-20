@@ -2,7 +2,7 @@
     "actionConfigs": [
         {
             "actionName": "RangedAttack",
-            "order": 1,
+            "order": 0,
             "conditions": [
                 {
                     "conditionName": "FoundPlayer",
