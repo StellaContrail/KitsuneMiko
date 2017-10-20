@@ -8,7 +8,6 @@ public class CameraManager : MonoBehaviour
     public GameObject outFrameLeft;
     public GameObject outFrameRight;
 
-    private GameObject gameManager;
     private Camera camera;
     private const float FRAME_HALF_WIDTH = 0.5f;
     Vector3 p1, p2, cameraPos;
@@ -16,7 +15,6 @@ public class CameraManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gameManager = GameObject.Find("GameManager");
         camera = gameObject.GetComponent<Camera>();
         cameraPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
         camera.transform.position = cameraPos;//初期カメラ位置をプレイヤー座標に設定
