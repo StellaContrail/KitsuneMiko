@@ -5,8 +5,8 @@ using UnityEngine;
 [AddComponentMenu("Character/Capture")]
 [DisallowMultipleComponent]
 public class Capture : MonoBehaviour {
-    static float hitPointRecovery = 10.0f;
-    static float magPointRecovery = 10.0f;
+    static float hitPointRecovery = 70.0f;
+    static float magPointRecovery = 120.0f;
 
     public GameObject player;
     SkillManager manager;

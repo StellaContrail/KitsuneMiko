@@ -151,7 +151,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!61 &61527040427415954
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionConfigs:
   - actionName: RangedAttack
-    order: 1
+    order: 0
     conditions:
     - conditionName: FoundPlayer
       args: []
@@ -307,7 +307,7 @@ MonoBehaviour:
   maxHitPoint: 120
   defencePoint: 1
   invFrameNum: 0
-  hitStopFrameNum: 20
+  hitStopFrameNum: 16
 --- !u!114 &114531215091384152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,7 +333,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: RangedAttack
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 1832683371289378, guid: a41ad156dec36954aa4f7cca24f0590d,
+    type: 2}
+  positionDiff: {x: 0.5, y: 0.5}
+  animationTrigger: attackRequired
 --- !u!212 &212076981788755174
 SpriteRenderer:
   m_ObjectHideFlags: 1

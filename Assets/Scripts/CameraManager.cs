@@ -7,11 +7,15 @@ public class CameraManager : MonoBehaviour
     public GameObject player;//プレイヤーオブジェクト
     public GameObject outFrameLeft;
     public GameObject outFrameRight;
+    public GameObject outZone;
+
 
     private Camera camera;
     private const float FRAME_HALF_WIDTH = 0.5f;
     Vector3 p1, p2, cameraPos;
     private float distans;
+
+    private float distansY = 5;
     // Use this for initialization
     void Start()
     {
@@ -19,7 +23,6 @@ public class CameraManager : MonoBehaviour
         cameraPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
         camera.transform.position = cameraPos;//初期カメラ位置をプレイヤー座標に設定
         p1 = camera.ViewportToWorldPoint(new Vector3(0, 0.5f, camera.nearClipPlane));//ビューポイント座標をワールド座標に変更
-
         distans = player.transform.position.x - p1.x;//プレイヤー座標と画面端の距離を取得
     }
 
@@ -27,6 +30,13 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         cameraPos.x = player.transform.position.x;//デフォルトではプレイヤー座標に合わせてカメラ座標を更新
+        cameraPos.y = player.transform.position.y;
+
+        if (player.transform.position.y < (outZone.transform.position.y + distansY))//カメラ下限設定
+        {
+
+            cameraPos.y = outZone.transform.position.y + distansY;
+        }
 
         if ((player.transform.position.x - distans) <
             (outFrameLeft.transform.position.x + FRAME_HALF_WIDTH))//プレイヤーが左端に位置する場合

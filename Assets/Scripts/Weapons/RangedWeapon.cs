@@ -6,9 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Damage))]
 public abstract class RangedWeapon : MonoBehaviour {
 
-    public virtual void Init (string tag, Transform attacker) {
-        this.tag = tag;
-        transform.position = attacker.position;
+    public virtual void Init (Transform attacker) {
+        tag = attacker.tag;
         transform.SetFaceDir(attacker.GetFaceDir());
     }
 }

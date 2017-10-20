@@ -7,11 +7,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class SkillManager : MonoBehaviour {
     [System.NonSerialized]
-    public float maxMagicPoint = 100.0f;
+    public float maxMagicPoint = 1000.0f;
     [System.NonSerialized]
-    public float magicPoint;
+    public float magicPoint = 0.0f;
     [System.NonSerialized]
-    public float naturalRecovery = 1.0f;
+    public float naturalRecovery = 2.0f;
 
     static readonly int MP_UPD_FRAME_NUM = 10;
     int mpUpdateFrameCnt = 0;
@@ -25,12 +25,9 @@ public class SkillManager : MonoBehaviour {
     };
 
     Skill[] skillSlots = new Skill[3];
-    bool isActive = false;
+    [System.NonSerialized]
+    public bool isActive = false;
     float totalCost;
-
-    void Awake () {
-        magicPoint = maxMagicPoint;
-    }
 
     void Start () {
         System.Type empty = typeof(EmptySkill);
@@ -58,10 +55,21 @@ public class SkillManager : MonoBehaviour {
         }
     }
 
+    void OnDisable () {
+        mpUpdateFrameCnt = 0;
+        if (isActive) {
+            Deactivate();
+        }
+    }
+
     public void ReleaseSkill (string skillName) {
         if (!skillDict[skillName]) {
             skillDict[skillName] = true;
         }
+    }
+
+    public System.Type[] GetSetSkillTypes () {
+        return skillSlots.Select(skill => skill.GetType()).ToArray();
     }
 
     void _ReplaceSkill (int num, System.Type type) {
@@ -99,6 +107,14 @@ public class SkillManager : MonoBehaviour {
         isActive = false;
         foreach (Skill skill in skillSlots) {
             skill.enabled = false;
+        }
+    }
+
+    public void ToggleActivation () {
+        if (isActive) {
+            Deactivate();
+        } else {
+            Activate();
         }
     }
 }
