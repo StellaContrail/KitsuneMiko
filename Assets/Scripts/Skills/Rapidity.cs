@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Rapidity : Skill {
-    static readonly float MAGNIFICATION = 1.5f;
+    static readonly float MAGNIFICATION = 3f;
 
-    //MoveAtion move;
+    PlayerWalk move;
 
     public override float cost {
         get {
@@ -14,14 +14,14 @@ public class Rapidity : Skill {
     }
 
     protected override void Awake() {
-        //move = GetComponent<MoveAction>();
+        move = GetComponent<PlayerWalk>();
     }
 
     void OnEnable () {
-        //move.speed *= MAGNIFICATION;
+        move.walkSpeed *= MAGNIFICATION;
     }
 
     void OnDisable () {
-        //move.speed /= MAGNIFICATION;
+        move.walkSpeed /= MAGNIFICATION;
     }
 }
