@@ -36,7 +36,6 @@ public class SkillManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        Debug.Log(skillDict["SecondJump"]);
         mpUpdateFrameCnt++;
         if (mpUpdateFrameCnt != MP_UPD_FRAME_NUM) {
             return;
