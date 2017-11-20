@@ -13,7 +13,7 @@ public class MotionFreezer : MonoBehaviour {
     Animator animator;
     ActionManager actionManager;
 
-    void Start () {
+    void Awake () {
         rbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         actionManager = GetComponent<ActionManager>();

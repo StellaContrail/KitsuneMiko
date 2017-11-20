@@ -37,7 +37,7 @@ public class PlayerChargeEndCondition : Condition
                 playerChargeStart.IsCharging = false;
                 Status.isSatisfied = true;
             }
-            // Charge中にちぇー時ボタンを離されたときｓ初期化する
+            // Charge中にー時ボタンを離されたとき初期化する
             else
             {
                 Debug.Log("Initialized");

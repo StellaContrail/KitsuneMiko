@@ -21,7 +21,8 @@ public class SkillManager : MonoBehaviour {
         {"EmptySkill", true},
         {"DurableBody", false},
         {"Rapidity", false},
-        {"AcornThrow", false}
+        {"AcornThrow", false},
+        {"SecondJump", false}
     };
 
     Skill[] skillSlots = new Skill[3];

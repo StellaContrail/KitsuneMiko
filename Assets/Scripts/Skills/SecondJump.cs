@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class SecondJump : Skill
 {
-    public float jumpSpeed = 6f;
-    public float fallEnhance = 15f;
-    public LayerMask groundLayer;
+    float jumpSpeed = 6f;
+    float fallEnhance = 15f;
     Rigidbody2D rbody;
+    Animator animator;
     // Use this for initialization
     void Start()
     {
         rbody = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     public override float cost
@@ -62,13 +63,7 @@ public class SecondJump : Skill
     {
         get
         {
-            bool onGround =
-                Physics2D.Linecast(transform.position - (transform.right * 0.3f),
-                transform.position - (transform.up * 0.1f), groundLayer) ||
-                Physics2D.Linecast(transform.position + (transform.right * 0.3f),
-                transform.position - (transform.up * 0.1f), groundLayer);
-
-            return onGround;
+            return animator.GetBool("onGround");
         }
 
     }

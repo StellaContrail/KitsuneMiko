@@ -10,6 +10,8 @@ public class PlayerJumpRise : Action
 	[System.NonSerialized]
     public bool isJumping = false;
 
+    Animator animator;
+
     bool _IsDone = true;
     public override bool IsDone()
     {
@@ -27,12 +29,7 @@ public class PlayerJumpRise : Action
     // Use this for initialization
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
         rbody = gameObject.GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
