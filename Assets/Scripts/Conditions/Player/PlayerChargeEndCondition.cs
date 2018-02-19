@@ -22,9 +22,12 @@ public class PlayerChargeEndCondition : Condition
     public void Deactivate()
     {
         Status.isSatisfied = false;
+        isReleasing = false;
     }
 
     public float chargingTime = 1f;
+    [System.NonSerialized]
+    public bool isReleasing = false;
 
     // Update is called once per frame
     void Update()
@@ -34,15 +37,30 @@ public class PlayerChargeEndCondition : Condition
             // Chargingをしていて、経過時間がchargeTimeを超えていてチャージボタンを離すときにとActを呼び出す
             if (playerChargeStart.ElapsedTime > chargingTime)
             {
-                playerChargeStart.IsCharging = false;
-                Status.isSatisfied = true;
+                //if player is walking, charge will be cancelled
+                if (gameObject.GetComponent<PlayerWalk>().moveSpeed == 0)
+                {
+                    Status.args["isFullyCharged"] = true;
+                    isReleasing = true;
+                }
+                else
+                {
+                    Debug.Log("Initialized");
+                    playerChargeStart.resetChargeTime();
+                    Status.args["isFullyCharged"] = false;
+                    isReleasing = false;
+                }
+                
             }
             // Charge中にー時ボタンを離されたとき初期化する
             else
             {
                 Debug.Log("Initialized");
-                playerChargeStart.IsCharging = false;
+                playerChargeStart.resetChargeTime();
+                Status.args["isFullyCharged"] = false;
             }
+            playerChargeStart.IsCharging = false;
+            Status.isSatisfied = true;
             gameObject.GetComponent<PlayerChargeStart>()._IsDone = true;
         }
     }

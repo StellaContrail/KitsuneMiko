@@ -11,10 +11,11 @@ public class PlayerWalk : Action {
         return _isDone;
     }
 
+    int i = 0;
     public float walkSpeed = 3f;
+    public float moveSpeed = 0f;
     public override void Act(Dictionary<string, object> args)
     {
-        float moveSpeed = 0f;
         Rigidbody2D rbody = gameObject.GetComponent<Rigidbody2D>();
         switch ((PlayerWalkCondition.WALK_DIR)System.Enum.Parse(typeof(PlayerWalkCondition.WALK_DIR), (string)args["movingDirection"]))
         {
@@ -34,7 +35,16 @@ public class PlayerWalk : Action {
                 break;
         }
 
-        gameObject.GetComponent<Animator>().SetBool("stop", moveSpeed == 0);
+        bool isCharging = gameObject.GetComponent<PlayerChargeStart>().IsCharging;
+        bool isReleasing = gameObject.GetComponent<PlayerChargeEndCondition>().isReleasing;
+        if (isCharging || isReleasing) 
+        {
+            gameObject.GetComponent<Animator>().SetBool("stop", true);
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().SetBool("stop", moveSpeed == 0);
+        }
 
         rbody.velocity = new Vector2(moveSpeed, rbody.velocity.y);
     }
