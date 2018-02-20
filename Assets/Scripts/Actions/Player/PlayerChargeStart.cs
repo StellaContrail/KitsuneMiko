@@ -23,11 +23,16 @@ public class PlayerChargeStart : Action
         captureBox.SetActive(false);
     }
 
+    public void resetChargeTime()
+    {
+        elapsedTime = 0f;
+    }
+
     public override void Act(Dictionary<string, object> args)
     {
         _IsDone = false;
         isCharging = true;
-        elapsedTime = 0f;
+        resetChargeTime();
         gameObject.GetComponent<PlayerChargeStartCondition>().Deactivate();
         gameObject.GetComponent<Animator>().SetBool("isCharging", true);
     }
@@ -37,7 +42,7 @@ public class PlayerChargeStart : Action
         if (isCharging)
         {
             elapsedTime += Time.deltaTime;
-            Debug.Log("Charging -- " + elapsedTime + "s");
+            //Debug.Log("Charging -- " + elapsedTime + "s");
         }
     }
 
