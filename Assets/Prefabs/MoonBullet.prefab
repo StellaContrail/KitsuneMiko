@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4710093818463386}
   - component: {fileID: 50221779262117252}
   - component: {fileID: 114652350406070408}
+  - component: {fileID: 61439912177166984}
+  - component: {fileID: 114487741253573588}
   m_Layer: 0
   m_Name: MoonBullet
   m_TagString: Untagged
@@ -92,6 +94,44 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61439912177166984
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147558348761894}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.68, y: 0.03}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.37, y: 1.4}
+  m_EdgeRadius: 0
+--- !u!114 &114487741253573588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147558348761894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4bdc7619635ae24b8c8e3e3766a09a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: 150
+  initAttributes: []
 --- !u!114 &114652350406070408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf936d43c5e7cd428b235677b1644af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RANGE: 50
+  VELOCITY_ENCHANCEMENT: 10
 --- !u!198 &198922460355726930
 ParticleSystem:
   m_ObjectHideFlags: 1

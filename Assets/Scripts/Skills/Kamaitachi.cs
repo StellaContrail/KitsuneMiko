@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kamaitachi : Skill {
+public class Kamaitachi : Skill
+{
+    public float X_DIFF = -0.5f;
+    public float Y_DIFF = 0.8f;
+    public float DEPTH = -1f;
+    public GameObject moonBullet;
 
-    ActionManager manager;
-    RangedAttack attack;
-    
     public override float cost
     {
         get
@@ -15,34 +17,21 @@ public class Kamaitachi : Skill {
         }
     }
 
-    ActionConfig[] config = new ActionConfig[] {
-        new ActionConfig(
-            actionName: "RangedAttack",
-            order: 0,
-            conditions: new ConditionConfig[] {},
-            blockActions: new string[] {}
-        )
-    };
-
-    protected override void Awake () {
-        manager = GetComponent<ActionManager>();
-        attack = gameObject.AddComponent<RangedAttack>();
-        attack.actionName = "RangedAttack";
-        attack.weaponPrefab = Resources.Load("MoonBullet") as GameObject;
-        manager.AddActions(config);
-        base.Awake();
+    protected override void Awake()
+    {
     }
 
-    void OnEnable () {
-        attack.enabled = true;
-    }
-
-    void OnDisable () {
-        attack.enabled = false;
-    }
-
-    void OnDestroy () {
-        manager.RemoveActions(config);
-        Destroy(attack);
+    void Update()
+    {
+        // if this skill is enabled, attack key is rebounden as this skill
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Vector3 pos = new Vector3(
+                transform.position.x + (float)transform.GetFaceDir().Reverse() - X_DIFF,
+                transform.position.y + Y_DIFF,
+                DEPTH
+            );
+            Instantiate(moonBullet, pos, Quaternion.identity).GetComponent<MoonBullet>().Init(gameObject);
+        }
     }
 }
