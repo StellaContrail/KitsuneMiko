@@ -19,6 +19,7 @@ public class Kamaitachi : Skill
 
     protected override void Awake()
     {
+        base.Awake();
     }
 
     void Update()
