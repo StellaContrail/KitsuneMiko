@@ -330,7 +330,7 @@ Animator:
   m_GameObject: {fileID: 1196683616667812}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06e51577ef5c6a44d875adff694eeeeb, type: 2}
+  m_Controller: {fileID: 9100000, guid: b8028d9e862fc0644b765343f2fe12c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Walk
   walkSpeed: 3
+  moveSpeed: 0
 --- !u!114 &114121887205938956
 MonoBehaviour:
   m_ObjectHideFlags: 1
