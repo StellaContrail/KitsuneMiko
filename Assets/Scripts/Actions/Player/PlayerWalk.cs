@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerWalk : Action {
 
+    public AnimatorOverrideController runChargeAnim;
+    public AnimatorOverrideController idleChargeAnim;
+
     bool _isDone = true;
 
     public override bool IsDone()
@@ -13,6 +16,7 @@ public class PlayerWalk : Action {
 
     int i = 0;
     public float walkSpeed = 3f;
+    [System.NonSerialized]
     public float moveSpeed = 0f;
     public override void Act(Dictionary<string, object> args)
     {
@@ -39,13 +43,24 @@ public class PlayerWalk : Action {
         bool isReleasing = gameObject.GetComponent<PlayerChargeEndCondition>().isReleasing;
         if (isCharging || isReleasing) 
         {
-            gameObject.GetComponent<Animator>().SetBool("stop", true);
+            gameObject.GetComponent<Animator>().SetBool("walk", false);
         }
         else
         {
-            gameObject.GetComponent<Animator>().SetBool("stop", moveSpeed == 0);
+            gameObject.GetComponent<Animator>().SetBool("walk", Mathf.Abs(moveSpeed) > 0);
         }
 
         rbody.velocity = new Vector2(moveSpeed, rbody.velocity.y);
+
+        // 歩いている時はAnimatorをOverrideしてCharge時アニメーションを変えるようにしている
+        if (Mathf.Abs(moveSpeed) > 0)
+        {
+            gameObject.GetComponent<Animator>().runtimeAnimatorController = runChargeAnim;
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().runtimeAnimatorController = idleChargeAnim;
+        }
+
     }
 }
