@@ -59,6 +59,10 @@ public class PlayerWalk : Action {
         else
         {
             gameObject.GetComponent<Animator>().SetBool("walk", Mathf.Abs(moveSpeed) > 0);
+            if (Mathf.Abs(moveSpeed) > 0 && Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) < Mathf.Epsilon)
+            {
+                gameObject.GetComponent<PlayerEffectManager>().ShowPlayerEffect("Walking");
+            }
         }
 
         if (walkable)

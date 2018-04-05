@@ -7,6 +7,7 @@ public class PlayerEffectManager : MonoBehaviour
 
     public GameObject ChargingEffect;
     public GameObject DeathEffect;
+    public GameObject WalkingEffect;
 
     // Use this for initialization
     void Start()
@@ -29,6 +30,9 @@ public class PlayerEffectManager : MonoBehaviour
                 break;
             case "Death":
                 ShowDeathEffect();
+                break;
+            case "Walking":
+                ShowWalkingEffect();
                 break;
         }
     }
@@ -56,5 +60,10 @@ public class PlayerEffectManager : MonoBehaviour
     void ShowDeathEffect()
     {
         Instantiate(DeathEffect, transform.position + Vector3.up * 0.7f, Quaternion.identity);
+    }
+
+    void ShowWalkingEffect()
+    {
+        Instantiate(WalkingEffect, transform.position, Quaternion.identity);
     }
 }

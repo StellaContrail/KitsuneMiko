@@ -86,7 +86,7 @@ public class Dash : Skill {
 		if (isDashReserved && pressedKeyCode == KeyCode.None)
 		{
             intervalTime++;
-			if (intervalTime > dashingFrames)
+            if (intervalTime > dashingFrames)
 			{
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 gameObject.GetComponent<PlayerWalk>().enable();

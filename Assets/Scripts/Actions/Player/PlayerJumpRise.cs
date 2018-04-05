@@ -24,6 +24,7 @@ public class PlayerJumpRise : Action
         rbody.velocity = new Vector2(velocity.x, jumpSpeed);
         isJumping = true;
         _IsDone = true;
+        gameObject.GetComponent<PlayerEffectManager>().ShowPlayerEffect("Walking");
     }
 
     // Use this for initialization
