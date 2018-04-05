@@ -35,6 +35,7 @@ public class PlayerChargeStart : Action
         resetChargeTime();
         gameObject.GetComponent<PlayerChargeStartCondition>().Deactivate();
         gameObject.GetComponent<Animator>().SetBool("isCharging", true);
+        gameObject.GetComponent<PlayerEffectManager>().ShowPlayerEffect("Charging");
     }
 
     void Update()

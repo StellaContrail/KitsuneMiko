@@ -21,13 +21,10 @@ public class PlayerChargeEnd : Action
     public override void Act(Dictionary<string, object> args)
     {
         animator.SetBool("isCharging", false);
+        gameObject.GetComponent<PlayerEffectManager>().HidePlayerEffect("Charging");
         if ((bool)args["isFullyCharged"])
         {
             animator.SetTrigger("release");
-        }
-        else
-        {
-            animator.SetBool("isCharging", false);
         }
         gameObject.GetComponent<PlayerChargeEndCondition>().Deactivate();
     }
