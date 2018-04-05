@@ -14,6 +14,17 @@ public class PlayerWalk : Action {
         return _isDone;
     }
 
+    bool walkable = true;
+    public void enable()
+    {
+        walkable = true;
+    }
+
+    public void disable()
+    {
+        walkable = false;
+    }
+
     int i = 0;
     public float walkSpeed = 3f;
     [System.NonSerialized]
@@ -50,7 +61,10 @@ public class PlayerWalk : Action {
             gameObject.GetComponent<Animator>().SetBool("walk", Mathf.Abs(moveSpeed) > 0);
         }
 
-        rbody.velocity = new Vector2(moveSpeed, rbody.velocity.y);
+        if (walkable)
+        {
+            rbody.velocity = new Vector2(moveSpeed, rbody.velocity.y);
+        }
 
         // 歩いている時はAnimatorをOverrideしてCharge時アニメーションを変えるようにしている
         if (Mathf.Abs(moveSpeed) > 0)
