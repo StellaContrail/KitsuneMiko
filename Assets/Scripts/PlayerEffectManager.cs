@@ -6,6 +6,7 @@ public class PlayerEffectManager : MonoBehaviour
 {
 
     public GameObject ChargingEffect;
+    public GameObject DeathEffect;
 
     // Use this for initialization
     void Start()
@@ -26,12 +27,15 @@ public class PlayerEffectManager : MonoBehaviour
             case "Charging":
                 ShowChargingEffect();
                 break;
+            case "Death":
+                ShowDeathEffect();
+                break;
         }
     }
 
     public void HidePlayerEffect(string effectName)
     {
-		switch (effectName)
+        switch (effectName)
         {
             case "Charging":
                 HideChargingEffect();
@@ -44,8 +48,13 @@ public class PlayerEffectManager : MonoBehaviour
         ChargingEffect.SetActive(true);
     }
 
-	void HideChargingEffect()
-	{
+    void HideChargingEffect()
+    {
         ChargingEffect.SetActive(false);
+    }
+
+    void ShowDeathEffect()
+    {
+        Instantiate(DeathEffect, transform.position + Vector3.up * 0.7f, Quaternion.identity);
     }
 }

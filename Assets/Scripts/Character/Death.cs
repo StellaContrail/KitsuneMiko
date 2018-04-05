@@ -28,6 +28,7 @@ public class Death : MonoBehaviour {
     }
 
     protected virtual void FixedUpdate () {
+        gameObject.GetComponent<PlayerEffectManager>().ShowPlayerEffect("Death");
         Destroy(gameObject);
     }
 }
