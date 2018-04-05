@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
     public GameObject outZone;
 
 
-    private Camera camera;
+    private Camera _camera;
     private const float FRAME_HALF_WIDTH = 0.5f;
     Vector3 p1, p2, cameraPos;
     private float distans;
@@ -19,10 +19,10 @@ public class CameraManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        camera = gameObject.GetComponent<Camera>();
+        _camera = gameObject.GetComponent<Camera>();
         cameraPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        camera.transform.position = cameraPos;//初期カメラ位置をプレイヤー座標に設定
-        p1 = camera.ViewportToWorldPoint(new Vector3(0, 0.5f, camera.nearClipPlane));//ビューポイント座標をワールド座標に変更
+        _camera.transform.position = cameraPos;//初期カメラ位置をプレイヤー座標に設定
+        p1 = _camera.ViewportToWorldPoint(new Vector3(0, 0.5f, _camera.nearClipPlane));//ビューポイント座標をワールド座標に変更
         distans = player.transform.position.x - p1.x;//プレイヤー座標と画面端の距離を取得
     }
 
@@ -50,6 +50,6 @@ public class CameraManager : MonoBehaviour
         }
 
 
-        camera.transform.position = cameraPos;//カメラ座標の更新
+        _camera.transform.position = cameraPos;//カメラ座標の更新
     }
 }
