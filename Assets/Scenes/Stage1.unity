@@ -17753,32 +17753,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4100218187357138, guid: 93b0139dc4146d444870185916ca3585,
     type: 2}
   m_PrefabInternal: {fileID: 1768402192}
---- !u!114 &908368861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 908368835}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92dfe2df689374943adc956d051ba04b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashSpeed: 15
-  dashUprisingSpeed: 8
-  keyReceivingFrames: 35
-  dashingFrames: 10
---- !u!114 &908368862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 908368835}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9ac34d88f48e449ae102d7be69843d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &911920658
 Prefab:
   m_ObjectHideFlags: 0
