@@ -36,7 +36,7 @@ public class PlayerOnGroundCondition : Condition {
         }
     }
 
-    bool IsPlayerOnGround
+    public bool IsPlayerOnGround
     {
         get
         {
