@@ -19,11 +19,11 @@ public class ButtonManager : MonoBehaviour {
         pauseManager = GameObject.Find("PauseManager");
         statePanel = GameObject.Find("StatePanel");
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
+    // Update is called once per frame
+    void Update () {
+        
+    }
 
     public void ButtonPush()
     {

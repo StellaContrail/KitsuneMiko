@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerOnGroundCondition : Condition {
 
-	ConditionState Status;
+    ConditionState Status;
     public override ConditionState Check(string[] args)
     {
         return Status;
@@ -21,7 +21,7 @@ public class PlayerOnGroundCondition : Condition {
         Status = new ConditionState();
         Status.isSatisfied = false;
     }
-	
+    
     // Update is called once per frame
     void FixedUpdate () {
         if (!IsPlayerOnGround)
