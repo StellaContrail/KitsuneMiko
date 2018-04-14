@@ -21,11 +21,6 @@ public class Dash : Skill {
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>

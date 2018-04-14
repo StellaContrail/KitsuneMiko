@@ -23,11 +23,6 @@ public class SecondJump : Skill
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     bool isPlayerSecondJumping = false;
     void Update()
     {

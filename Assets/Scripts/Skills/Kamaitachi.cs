@@ -17,11 +17,6 @@ public class Kamaitachi : Skill
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     void Update()
     {
         // if this skill is enabled, attack key is rebounden as this skill
