@@ -66,7 +66,13 @@ public class Dash : Skill {
                 isDashReserved = true;
             }
         }
-        
+    }
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void FixedUpdate()
+    {
         if (isDashReserved && pressedKeyCode != KeyCode.None)
         {
             intervalTime++;
@@ -89,15 +95,6 @@ public class Dash : Skill {
                 intervalTime = 0;
             }
         }
-
-    }
-
-    /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void FixedUpdate()
-    {
-        
     }
 
 }
